@@ -1,7 +1,11 @@
 <template>
   <div class="p-4 max-w-lg mx-auto shadow-2xl">
     <section class="p-4">
-      <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="grid gap-2">
+      <form
+        v-if="!regFormSubmitted"
+        @submit.prevent="submitForm"
+        class="grid gap-2"
+      >
         <!-- Name -->
         <div class="grid gap-2" :style="style">
           <label for="name" class="block font-bold">Name</label>
@@ -15,23 +19,6 @@
           />
           <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
         </div>
-
-        <!-- Address -->
-        <div class="grid gap-2" :style="style">
-          <label for="address" class="block font-bold">Address</label>
-          <input
-            type="text"
-            id="address"
-            v-model="formData.address"
-            :class="inputClass"
-            placeholder="e.g. 1 no road, Khulshi, Chittagong"
-            required
-          />
-          <span v-if="errors.address" class="text-red-500">{{
-            errors.address
-          }}</span>
-        </div>
-
         <!-- Phone -->
         <div class="grid gap-2" :style="style">
           <label for="phone" class="block font-bold">Phone</label>
@@ -63,6 +50,22 @@
           }}</span>
         </div>
 
+        <!-- Address -->
+        <div class="grid gap-2" :style="style">
+          <label for="address" class="block font-bold">Address</label>
+          <input
+            type="text"
+            id="address"
+            v-model="formData.address"
+            :class="inputClass"
+            placeholder="e.g. 1 no road, Khulshi, Chittagong"
+            required
+          />
+          <span v-if="errors.address" class="text-red-500">{{
+            errors.address
+          }}</span>
+        </div>
+
         <!-- Email -->
         <div class="grid gap-2" :style="style">
           <label for="email" class="block font-bold">Email</label>
@@ -85,7 +88,7 @@
             id="occupation"
             v-model="formData.occupation"
             class="focus:outline-none bg-none"
-            style="background: none;"
+            style="background: none"
             :class="inputClass"
           >
             <option disabled :value="''">Select Occupation</option>
@@ -99,27 +102,40 @@
 
         <!-- Family Members -->
         <div class="grid gap-2" :style="style">
-          <label for="familyMembers" class="block font-bold">Family Members</label>
+          <label for="familyMembers" class="block font-bold"
+            >Family Members</label
+          >
           <select
             id="familyMembers"
             v-model="formData.familyMembers"
             class="focus:outline-none bg-none"
             :class="inputClass"
-            style="background: none;"
+            style="background: none"
           >
             <option disabled :value="''">Select Family Members</option>
-            <option value="1">1-3</option>
-            <option value="2">4-6</option>
-            <option value="3">7-Above</option>
+            <option value="1-3">1-3</option>
+            <option value="4-6">4-6</option>
+            <option value="7-Above">7-Above</option>
             <!-- Add more options as needed -->
           </select>
         </div>
 
+        <!-- Anniversary -->
+        <div class="grid gap-2" :style="style">
+          <label for="anniversary" class="block font-bold">Anniversary</label>
+          <input
+            type="date"
+            id="anniversary"
+            v-model="formData.anniversary"
+            :class="inputClass"
+          />
+          <span v-if="errors.anniversary" class="text-red-500">{{
+            errors.anniversary
+          }}</span>
+        </div>
+
         <!-- Gender -->
-        <div
-          class="flex gap-4 mt-2"
-          style=""
-        >
+        <div class="flex gap-4 mt-2" style="">
           <label class="block font-bold">Gender</label>
           <label class="inline-flex items-center">
             <input
@@ -142,35 +158,7 @@
             <span class="ml-2">Female</span>
           </label>
         </div>
-
-        <!-- Anniversary -->
-        <div class="grid gap-2" :style="style">
-          <label for="anniversary" class="block font-bold">Anniversary</label>
-          <input
-            type="date"
-            id="anniversary"
-            v-model="formData.anniversary"
-            :class="inputClass"
-          />
-          <span v-if="errors.anniversary" class="text-red-500">{{
-            errors.anniversary
-          }}</span>
-        </div>
-
-        <!-- Has Complimentary Card -->
-        <!-- <div class="flex gap-2 mb-4" :style="''">
-          <label class="inline-flex items-center">
-            <input
-              type="checkbox"
-              v-model="formData.hasComplimentaryCard"
-              class="form-checkbox"
-            />
-          </label>
-          <span class="">Complimentary Card</span>
-        </div> -->
-        <div
-          class="flex gap-4 mt-2"
-        >
+        <div class="flex gap-4 mt-2">
           <label class="block font-bold">Complimentary Card</label>
           <label class="inline-flex items-center">
             <input
@@ -204,13 +192,24 @@
         <span v-else>Processing</span>
       </form>
 
-      <form v-if="regFormSubmitted" @submit.prevent="submitOtpForm" class="grid gap-2">
-        <label @click="()=> {
-          success = false
-          regFormSubmitted = false
-          errors.otpError = ''
-          otp = ''
-        }" class="block cursor-pointer">< Back</label>
+      <form
+        v-if="regFormSubmitted"
+        @submit.prevent="submitOtpForm"
+        class="grid gap-2"
+      >
+        <label
+          @click="
+            () => {
+              success = false;
+              regFormSubmitted = false;
+              errors.otpError = '';
+              otp = '';
+              errors = {}
+            }
+          "
+          class="block cursor-pointer"
+          >< Back</label
+        >
         <!-- Name -->
         <div class="grid gap-2" :style="style">
           <label for="name" class="block font-bold">OTP</label>
@@ -234,8 +233,15 @@
           Submit
         </button>
         <span v-else>Processing</span>
-        <div class="mt-4 text-center text-red-500" v-if="errors.otpError">{{errors.otpError}}</div>
-        <div class="mt-4 text-center text-green-500" v-if="!errors.otpError && success && !loading">{{'Successfully verified your phone!'}}</div>
+        <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
+          {{ errors.otpError }}
+        </div>
+        <div
+          class="mt-4 text-center text-green-500"
+          v-if="!errors.otpError && success && !loading"
+        >
+          {{ "Successfully verified your phone!" }}
+        </div>
       </form>
     </section>
   </div>
@@ -243,7 +249,7 @@
 
 <script setup>
 import { ref } from "vue";
-const config = useRuntimeConfig()
+const config = useRuntimeConfig();
 const url = config.public.BASE_URL + "user";
 const style = "";
 const inputClass =
@@ -259,22 +265,22 @@ const defaultData = {
   gender: "",
   anniversary: "",
   hasComplimentaryCard: false,
-}
-  const formData = ref({...defaultData});
+};
+const formData = ref({ ...defaultData });
 
 const errors = ref({});
 const loading = ref(false);
 const regFormSubmitted = ref(false);
 const success = ref(false);
 const userId = ref(null);
-const otp = ref('');
+const otp = ref("");
 
-const formattedData = computed(()=> {
+const formattedData = computed(() => {
   return {
     ...formData.value,
-    hasComplimentaryCard: !!formData.value.hasComplimentaryCard == "Yes"
-  }
-})
+    hasComplimentaryCard: !!formData.value.hasComplimentaryCard == "Yes",
+  };
+});
 
 const submitForm = () => {
   // Here you can perform form validation before submitting the data
@@ -289,7 +295,6 @@ const submitForm = () => {
   //     // Add more error messages for other fields if needed
   //   };
 
-
   // Options for the fetch request
   const options = {
     method: "POST",
@@ -298,29 +303,32 @@ const submitForm = () => {
     },
     body: JSON.stringify(formattedData.value),
   };
-  loading.value = true
-  errors.otpError = ''
+  loading.value = true;
+  errors.otpError = "";
   // Send POST request using fetch
   fetch(url, options)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        return response.json().then(data => {
+          errors.value = data
+          throw new Error(data);
+        });
       }
       return response.json();
     })
     .then((data) => {
       console.log("Success:", data);
-      userId.value = data.data.id
-      formData.value = {...defaultData}
+      userId.value = data.data.id;
+      formData.value = { ...defaultData };
       setTimeout(() => {
-        loading.value = false
+        loading.value = false;
       }, 1000);
-      regFormSubmitted.value = true
+      regFormSubmitted.value = true;
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error("Error:", error, error.message, 2345);
       setTimeout(() => {
-        loading.value = false
+        loading.value = false;
       }, 1000);
       // Handle error from the server or network
     });
@@ -336,8 +344,8 @@ const submitOtpForm = () => {
       code: otp.value,
     }),
   };
-  loading.value = true
-  errors.value.otpError = ""
+  loading.value = true;
+  errors.value.otpError = "";
   // Send POST request using fetch
   fetch(url + "/" + userId.value, options)
     .then((response) => {
@@ -349,20 +357,20 @@ const submitOtpForm = () => {
     .then((data) => {
       console.log("Success:", data);
       setTimeout(() => {
-        loading.value = false
+        loading.value = false;
       }, 1000);
       // regFormSubmitted.value = false
-      errors.value.otpError = ""
-      otp.value = null
-      userId.value = null
-      success.value = true
+      errors.value.otpError = "";
+      otp.value = null;
+      userId.value = null;
+      success.value = true;
     })
     .catch((error) => {
       console.error("Error:", error);
       setTimeout(() => {
-        loading.value = false
+        loading.value = false;
       }, 1000);
-      errors.value.otpError = "Otp not matched"
+      errors.value.otpError = "Otp not matched";
       // Handle error from the server or network
     });
 };
