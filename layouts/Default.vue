@@ -6,7 +6,6 @@
           class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
         >
           <div class="hidden sm:flex sm:space-x-8">
-            <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
             <nuxt-link
               to="/"
               :class="
@@ -18,6 +17,7 @@
               >Add customer
             </nuxt-link>
             <nuxt-link
+              v-if="loginAccount"
               to="/customer-list"
               :class="
                 route.name == 'customer-list'
@@ -31,12 +31,14 @@
         </div>
         <div class="flex">
           <button
+            v-if="loginAccount"
             @click="logout"
             class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium border-transparent hover:border-gray-300 text-gray-500 hover:text-gray-700"
           >
             Logout
           </button>
           <nuxt-link
+            v-else
             to="/login"
             :class="
               route.name == 'login'
@@ -86,7 +88,14 @@
 <script setup>
 import { ref } from "vue";
 const route = useRoute();
-const isLogin = ref(true);
+const router = useRouter();
+const emit = ["toggleLogin"];
+const { isLogin } = defineProps({
+  isLogin: {
+    type: Boolean,
+    default: false,
+  },
+});
 import {
   Disclosure,
   DisclosureButton,
@@ -98,8 +107,23 @@ import {
 } from "@headlessui/vue";
 
 name: "Default";
+const removedAccount = ref(false);
+const loginAccount = computed(() => {
+  if (removedAccount.value) {
+    return false;
+  }
 
-const logout = ()=> {
-  console.log("logout");
-}
+  const data =
+    window != null && window != undefined
+      ? window.localStorage.getItem("LOGIN_ACCOUNT")
+      : null;
+  if (data) return JSON.parse(data);
+  return false;
+});
+
+const logout = () => {
+  removedAccount.value = true;
+  window.localStorage.removeItem("LOGIN_ACCOUNT");
+  router.push("/login");
+};
 </script>

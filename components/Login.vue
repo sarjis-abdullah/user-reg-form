@@ -1,67 +1,59 @@
 <template>
-  <Default :isLogin="isLogin">
-    <div class="p-4 max-w-lg mx-auto shadow-2xl">
-      <section class="p-4">
-        <form
-          v-if="!regFormSubmitted"
-          @submit.prevent="submitForm"
-          class="grid gap-2"
+  <div class="p-4 max-w-lg mx-auto shadow-2xl">
+    <section class="p-4">
+      <form
+        v-if="!regFormSubmitted"
+        @submit.prevent="submitForm"
+        class="grid gap-2"
+      >
+        <!-- Phone -->
+        <div class="grid gap-2" :style="style">
+          <label for="phone" class="block font-bold">Phone</label>
+          <input
+            type="text"
+            id="phone"
+            v-model="formData.phone"
+            :class="inputClass"
+            placeholder="e.g. +880123456789"
+            required
+          />
+          <span v-if="errors.phone" class="text-red-500">{{
+            errors.phone
+          }}</span>
+        </div>
+
+        <!-- Email -->
+        <div class="grid gap-2" :style="style">
+          <label for="email" class="block font-bold">Password</label>
+          <input
+            type="password"
+            id="email"
+            v-model="formData.password"
+            :class="inputClass"
+          />
+          <span v-if="errors.email" class="text-red-500">{{
+            errors.email
+          }}</span>
+        </div>
+
+        <button
+          type="submit"
+          v-if="!loading"
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
         >
-          <!-- Phone -->
-          <div class="grid gap-2" :style="style">
-            <label for="phone" class="block font-bold">Phone</label>
-            <input
-              type="text"
-              id="phone"
-              v-model="formData.phone"
-              :class="inputClass"
-              placeholder="e.g. +880123456789"
-              required
-            />
-            <span v-if="errors.phone" class="text-red-500">{{
-              errors.phone
-            }}</span>
-          </div>
-
-          <!-- Email -->
-          <div class="grid gap-2" :style="style">
-            <label for="email" class="block font-bold">Password</label>
-            <input
-              type="password"
-              id="email"
-              v-model="formData.password"
-              :class="inputClass"
-            />
-            <span v-if="errors.email" class="text-red-500">{{
-              errors.email
-            }}</span>
-          </div>
-
-          <button
-            type="submit"
-            v-if="!loading"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
-          >
-            Login
-          </button>
-          <span v-else>Processing</span>
-        </form>
-      </section>
-    </div>
-  </Default>
+          Login
+        </button>
+        <span v-else>Processing</span>
+      </form>
+    </section>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import Default from "../layouts/Default.vue";
-import Login from "../components/Login.vue";
 // import AccountStorage from "../storage/Index";
 
-definePageMeta({
-  layout: "Default",
-});
 const route = useRoute();
-const router = useRouter();
 
 const config = useRuntimeConfig();
 const url = config.public.BASE_URL + "user/login";
@@ -80,7 +72,6 @@ const regFormSubmitted = ref(false);
 const success = ref(false);
 const userId = ref(null);
 const otp = ref("");
-const isLogin = ref(false);
 
 const submitForm = () => {
   const options = {
@@ -107,11 +98,8 @@ const submitForm = () => {
       loading.value = false;
       console.log(data, 12345);
       if (data.user) {
-        localStorage.setItem("LOGIN_ACCOUNT", JSON.stringify(data.user));
-        isLogin.value = true;
-        router.push("/")
-        // Reload the page
-        // window.location.reload();
+        localStorage.setItem('LOGIN_ACCOUNT',JSON.stringify(data.user));
+        // AccountStorage.saveAccount(data.user);
       }
     })
     .catch((error) => {
