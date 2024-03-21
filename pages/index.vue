@@ -1,254 +1,264 @@
 <template>
-  <div class="p-4 max-w-lg mx-auto shadow-2xl">
-    <section class="p-4">
-      <form
-        v-if="!regFormSubmitted"
-        @submit.prevent="submitForm"
-        class="grid gap-2"
-      >
-        <!-- Name -->
-        <div class="grid gap-2" :style="style">
-          <label for="name" class="block font-bold">Name</label>
-          <input
-            type="text"
-            id="name"
-            v-model="formData.name"
-            :class="inputClass"
-            placeholder="e.g. John Doe"
-            required
-          />
-          <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
-        </div>
-        <!-- Phone -->
-        <div class="grid gap-2" :style="style">
-          <label for="phone" class="block font-bold">Phone</label>
-          <input
-            type="text"
-            id="phone"
-            v-model="formData.phone"
-            :class="inputClass"
-            placeholder="e.g. +880123456789"
-            required
-          />
-          <span v-if="errors.phone" class="text-red-500">{{
-            errors.phone
-          }}</span>
-        </div>
+  <Default>
+    <div class="p-4 max-w-lg mx-auto shadow-2xl">
+      <section class="p-4">
+        <form
+          v-if="!regFormSubmitted"
+          @submit.prevent="submitForm"
+          class="grid gap-2"
+        >
+          <!-- Name -->
+          <div class="grid gap-2" :style="style">
+            <label for="name" class="block font-bold">Name</label>
+            <input
+              type="text"
+              id="name"
+              v-model="formData.name"
+              :class="inputClass"
+              placeholder="e.g. John Doe"
+              required
+            />
+            <span v-if="errors.name" class="text-red-500">{{
+              errors.name
+            }}</span>
+          </div>
+          <!-- Phone -->
+          <div class="grid gap-2" :style="style">
+            <label for="phone" class="block font-bold">Phone</label>
+            <input
+              type="text"
+              id="phone"
+              v-model="formData.phone"
+              :class="inputClass"
+              placeholder="e.g. +880123456789"
+              required
+            />
+            <span v-if="errors.phone" class="text-red-500">{{
+              errors.phone
+            }}</span>
+          </div>
 
-        <!-- Birth Date -->
-        <div class="grid gap-2" :style="style">
-          <label for="birthDate" class="block font-bold">Birth Date</label>
-          <input
-            type="date"
-            id="birthDate"
-            v-model="formData.birthDate"
-            :class="inputClass"
-            required
-          />
-          <span v-if="errors.birthDate" class="text-red-500">{{
-            errors.birthDate
-          }}</span>
-        </div>
+          <!-- Birth Date -->
+          <div class="grid gap-2" :style="style">
+            <label for="birthDate" class="block font-bold">Birth Date</label>
+            <input
+              type="date"
+              id="birthDate"
+              v-model="formData.birthDate"
+              :class="inputClass"
+              required
+            />
+            <span v-if="errors.birthDate" class="text-red-500">{{
+              errors.birthDate
+            }}</span>
+          </div>
 
-        <!-- Address -->
-        <div class="grid gap-2" :style="style">
-          <label for="address" class="block font-bold">Address</label>
-          <input
-            type="text"
-            id="address"
-            v-model="formData.address"
-            :class="inputClass"
-            placeholder="e.g. 1 no road, Khulshi, Chittagong"
-            required
-          />
-          <span v-if="errors.address" class="text-red-500">{{
-            errors.address
-          }}</span>
-        </div>
+          <!-- Address -->
+          <div class="grid gap-2" :style="style">
+            <label for="address" class="block font-bold">Address</label>
+            <input
+              type="text"
+              id="address"
+              v-model="formData.address"
+              :class="inputClass"
+              placeholder="e.g. 1 no road, Khulshi, Chittagong"
+              required
+            />
+            <span v-if="errors.address" class="text-red-500">{{
+              errors.address
+            }}</span>
+          </div>
 
-        <!-- Email -->
-        <div class="grid gap-2" :style="style">
-          <label for="email" class="block font-bold">Email</label>
-          <input
-            type="email"
-            id="email"
-            v-model="formData.email"
-            placeholder="e.g. john@gmail.com"
-            :class="inputClass"
-          />
-          <span v-if="errors.email" class="text-red-500">{{
-            errors.email
-          }}</span>
-        </div>
+          <!-- Email -->
+          <div class="grid gap-2" :style="style">
+            <label for="email" class="block font-bold">Email</label>
+            <input
+              type="email"
+              id="email"
+              v-model="formData.email"
+              placeholder="e.g. john@gmail.com"
+              :class="inputClass"
+            />
+            <span v-if="errors.email" class="text-red-500">{{
+              errors.email
+            }}</span>
+          </div>
 
-        <!-- Occupation -->
-        <div class="grid gap-2" :style="style">
-          <label for="occupation" class="block font-bold">Occupation</label>
-          <select
-            id="occupation"
-            v-model="formData.occupation"
-            class="focus:outline-none bg-none"
-            style="background: none"
-            :class="inputClass"
+          <!-- Occupation -->
+          <div class="grid gap-2" :style="style">
+            <label for="occupation" class="block font-bold">Occupation</label>
+            <select
+              id="occupation"
+              v-model="formData.occupation"
+              class="focus:outline-none bg-none"
+              style="background: none"
+              :class="inputClass"
+            >
+              <option disabled :value="''">Select Occupation</option>
+              <option value="Engineer">Business</option>
+              <option value="Engineer">Service</option>
+              <option value="Doctor">Student</option>
+              <option value="Teacher">Other</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+
+          <!-- Family Members -->
+          <div class="grid gap-2" :style="style">
+            <label for="familyMembers" class="block font-bold"
+              >Family Members</label
+            >
+            <select
+              id="familyMembers"
+              v-model="formData.familyMembers"
+              class="focus:outline-none bg-none"
+              :class="inputClass"
+              style="background: none"
+            >
+              <option disabled :value="''">Select Family Members</option>
+              <option value="1-3">1-3</option>
+              <option value="4-6">4-6</option>
+              <option value="7-Above">7-Above</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+
+          <!-- Anniversary -->
+          <div class="grid gap-2" :style="style">
+            <label for="anniversary" class="block font-bold">Anniversary</label>
+            <input
+              type="date"
+              id="anniversary"
+              v-model="formData.anniversary"
+              :class="inputClass"
+            />
+            <span v-if="errors.anniversary" class="text-red-500">{{
+              errors.anniversary
+            }}</span>
+          </div>
+
+          <!-- Gender -->
+          <div class="flex gap-4 mt-2" style="">
+            <label class="block font-bold">Gender</label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="gender"
+                v-model="formData.gender"
+                value="Male"
+                class="form-radio"
+              />
+              <span class="ml-2">Male</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="gender"
+                v-model="formData.gender"
+                value="Female"
+                class="form-radio"
+              />
+              <span class="ml-2">Female</span>
+            </label>
+          </div>
+          <div class="flex gap-4 mt-2">
+            <label class="block font-bold">Complimentary Card</label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="card"
+                v-model="formData.hasComplimentaryCard"
+                value="Yes"
+                class="form-radio"
+              />
+              <span class="ml-2">Yes</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="card"
+                v-model="formData.hasComplimentaryCard"
+                value="No"
+                class="form-radio"
+              />
+              <span class="ml-2">No</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            v-if="!loading"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
           >
-            <option disabled :value="''">Select Occupation</option>
-            <option value="Engineer">Business</option>
-            <option value="Engineer">Service</option>
-            <option value="Doctor">Student</option>
-            <option value="Teacher">Other</option>
-            <!-- Add more options as needed -->
-          </select>
-        </div>
+            Submit
+          </button>
+          <span v-else>Processing</span>
+        </form>
 
-        <!-- Family Members -->
-        <div class="grid gap-2" :style="style">
-          <label for="familyMembers" class="block font-bold"
-            >Family Members</label
+        <form
+          v-if="regFormSubmitted"
+          @submit.prevent="submitOtpForm"
+          class="grid gap-2"
+        >
+          <label
+            @click="
+              () => {
+                success = false;
+                regFormSubmitted = false;
+                errors.otpError = '';
+                otp = '';
+                errors = {};
+              }
+            "
+            class="block cursor-pointer"
+            >< Back</label
           >
-          <select
-            id="familyMembers"
-            v-model="formData.familyMembers"
-            class="focus:outline-none bg-none"
-            :class="inputClass"
-            style="background: none"
+          <!-- Name -->
+          <div class="grid gap-2" :style="style">
+            <label for="name" class="block font-bold">OTP</label>
+            <input
+              type="text"
+              id="name"
+              v-model="otp"
+              :class="inputClass"
+              placeholder="e.g. 1234"
+              required
+            />
+            <span v-if="errors?.otp" class="text-red-500">{{
+              errors.otp
+            }}</span>
+          </div>
+
+          <button
+            type="submit"
+            :disabled="otp == '' || otp == null"
+            v-if="!loading"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
           >
-            <option disabled :value="''">Select Family Members</option>
-            <option value="1-3">1-3</option>
-            <option value="4-6">4-6</option>
-            <option value="7-Above">7-Above</option>
-            <!-- Add more options as needed -->
-          </select>
-        </div>
-
-        <!-- Anniversary -->
-        <div class="grid gap-2" :style="style">
-          <label for="anniversary" class="block font-bold">Anniversary</label>
-          <input
-            type="date"
-            id="anniversary"
-            v-model="formData.anniversary"
-            :class="inputClass"
-          />
-          <span v-if="errors.anniversary" class="text-red-500">{{
-            errors.anniversary
-          }}</span>
-        </div>
-
-        <!-- Gender -->
-        <div class="flex gap-4 mt-2" style="">
-          <label class="block font-bold">Gender</label>
-          <label class="inline-flex items-center">
-            <input
-              type="radio"
-              name="gender"
-              v-model="formData.gender"
-              value="Male"
-              class="form-radio"
-            />
-            <span class="ml-2">Male</span>
-          </label>
-          <label class="inline-flex items-center">
-            <input
-              type="radio"
-              name="gender"
-              v-model="formData.gender"
-              value="Female"
-              class="form-radio"
-            />
-            <span class="ml-2">Female</span>
-          </label>
-        </div>
-        <div class="flex gap-4 mt-2">
-          <label class="block font-bold">Complimentary Card</label>
-          <label class="inline-flex items-center">
-            <input
-              type="radio"
-              name="card"
-              v-model="formData.hasComplimentaryCard"
-              value="Yes"
-              class="form-radio"
-            />
-            <span class="ml-2">Yes</span>
-          </label>
-          <label class="inline-flex items-center">
-            <input
-              type="radio"
-              name="card"
-              v-model="formData.hasComplimentaryCard"
-              value="No"
-              class="form-radio"
-            />
-            <span class="ml-2">No</span>
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          v-if="!loading"
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
-        >
-          Submit
-        </button>
-        <span v-else>Processing</span>
-      </form>
-
-      <form
-        v-if="regFormSubmitted"
-        @submit.prevent="submitOtpForm"
-        class="grid gap-2"
-      >
-        <label
-          @click="
-            () => {
-              success = false;
-              regFormSubmitted = false;
-              errors.otpError = '';
-              otp = '';
-              errors = {}
-            }
-          "
-          class="block cursor-pointer"
-          >< Back</label
-        >
-        <!-- Name -->
-        <div class="grid gap-2" :style="style">
-          <label for="name" class="block font-bold">OTP</label>
-          <input
-            type="text"
-            id="name"
-            v-model="otp"
-            :class="inputClass"
-            placeholder="e.g. 1234"
-            required
-          />
-          <span v-if="errors?.otp" class="text-red-500">{{ errors.otp }}</span>
-        </div>
-
-        <button
-          type="submit"
-          :disabled="otp == '' || otp == null"
-          v-if="!loading"
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
-        >
-          Submit
-        </button>
-        <span v-else>Processing</span>
-        <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
-          {{ errors.otpError }}
-        </div>
-        <div
-          class="mt-4 text-center text-green-500"
-          v-if="!errors.otpError && success && !loading"
-        >
-          {{ "Successfully verified your phone!" }}
-        </div>
-      </form>
-    </section>
-  </div>
+            Submit
+          </button>
+          <span v-else>Processing</span>
+          <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
+            {{ errors.otpError }}
+          </div>
+          <div
+            class="mt-4 text-center text-green-500"
+            v-if="!errors.otpError && success && !loading"
+          >
+            {{ "Successfully verified your phone!" }}
+          </div>
+        </form>
+      </section>
+    </div>
+  </Default>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import Default from "../layouts/Default.vue";
+definePageMeta({
+  layout: "Default",
+});
 const config = useRuntimeConfig();
 const url = config.public.BASE_URL + "user";
 const style = "";
@@ -309,8 +319,8 @@ const submitForm = () => {
   fetch(url, options)
     .then((response) => {
       if (!response.ok) {
-        return response.json().then(data => {
-          errors.value = data
+        return response.json().then((data) => {
+          errors.value = data;
           throw new Error(data);
         });
       }

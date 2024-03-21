@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.8",
     "@cmdotcom/text-sdk": "^2.0.0",
     "@vonage/server-sdk": "^3.13.1",
     "mongodb": "^6.2.0",
