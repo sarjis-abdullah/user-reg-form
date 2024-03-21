@@ -117,7 +117,7 @@
 
         <!-- Gender -->
         <div
-          class="grid gap-2"
+          class="flex gap-4 mt-2"
           style=""
         >
           <label class="block font-bold">Gender</label>
@@ -169,7 +169,7 @@
           <span class="">Complimentary Card</span>
         </div> -->
         <div
-          class="grid gap-2"
+          class="flex gap-4 mt-2"
         >
           <label class="block font-bold">Complimentary Card</label>
           <label class="inline-flex items-center">
@@ -243,6 +243,8 @@
 
 <script setup>
 import { ref } from "vue";
+const config = useRuntimeConfig()
+const url = config.public.BASE_URL + "user";
 const style = "";
 const inputClass =
   "relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500";
@@ -287,7 +289,6 @@ const submitForm = () => {
   //     // Add more error messages for other fields if needed
   //   };
 
-  const url = "/api/user/post"; // Replace this with your actual API endpoint
 
   // Options for the fetch request
   const options = {
@@ -309,7 +310,7 @@ const submitForm = () => {
     })
     .then((data) => {
       console.log("Success:", data);
-      userId.value = data.data._id
+      userId.value = data.data.id
       formData.value = {...defaultData}
       setTimeout(() => {
         loading.value = false
@@ -325,23 +326,20 @@ const submitForm = () => {
     });
 };
 const submitOtpForm = () => {
-  const url = "/api/user/update"; // Replace this with your actual API endpoint
-
   // Options for the fetch request
   const options = {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       code: otp.value,
-      userId: userId.value,
     }),
   };
   loading.value = true
   errors.value.otpError = ""
   // Send POST request using fetch
-  fetch(url, options)
+  fetch(url + "/" + userId.value, options)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
