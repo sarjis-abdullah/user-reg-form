@@ -102,10 +102,16 @@
           </div>
         </div>
       </div>
-      <div class="text-center h-screen flex items-center justify-center" v-else-if="loading">
+      <div
+        class="text-center h-screen flex items-center justify-center"
+        v-else-if="loading"
+      >
         Loading
       </div>
-      <div class="text-center h-screen flex items-center justify-center" v-else-if="!loading && userList.length == 0">
+      <div
+        class="text-center h-screen flex items-center justify-center"
+        v-else-if="!loading && userList.length == 0"
+      >
         No data
       </div>
     </div>
@@ -156,7 +162,12 @@ const formattedData = computed(() => {
 const loadData = () => {
   loading.value = true;
   errors.otpError = "";
-  fetch(url)
+  const token = window != null && window != undefined
+      ? window.localStorage.getItem("ACCESS_TOKEN")
+      : null;
+  fetch(url, {
+    headers: { Authorization: "Bearer " + token },
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -170,7 +181,7 @@ const loadData = () => {
     })
     .catch((error) => {
       // Handle any errors that occurred during the fetch
-      loading.value = false
+      loading.value = false;
       console.error("There was a problem with the fetch operation:", error);
     });
 };

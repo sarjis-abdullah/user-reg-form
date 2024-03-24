@@ -124,6 +124,7 @@ const loginAccount = computed(() => {
 const logout = () => {
   removedAccount.value = true;
   window.localStorage.removeItem("LOGIN_ACCOUNT");
+  window.localStorage.removeItem("ACCESS_TOKEN");
   router.push("/login");
 };
 </script>

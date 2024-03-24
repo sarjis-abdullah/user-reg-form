@@ -108,6 +108,7 @@ const submitForm = () => {
       console.log(data, 12345);
       if (data.user) {
         localStorage.setItem("LOGIN_ACCOUNT", JSON.stringify(data.user));
+        localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         isLogin.value = true;
         router.push("/")
         // Reload the page
