@@ -110,7 +110,7 @@ const submitForm = () => {
         localStorage.setItem("LOGIN_ACCOUNT", JSON.stringify(data.user));
         localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         isLogin.value = true;
-        router.push("/")
+        router.push("/customer-list")
         // Reload the page
         // window.location.reload();
       }
