@@ -47,6 +47,11 @@
           <span v-else>Processing</span>
         </form>
       </section>
+      <div v-if="errors">
+        <div v-for="error in errors" :key="error" class="text-center text-red-500">
+          {{ error }}
+        </div>
+      </div>
     </div>
   </Default>
 </template>
@@ -105,7 +110,6 @@ const submitForm = () => {
     })
     .then((data) => {
       loading.value = false;
-      console.log(data, 12345);
       if (data.user) {
         localStorage.setItem("LOGIN_ACCOUNT", JSON.stringify(data.user));
         localStorage.setItem("ACCESS_TOKEN", data.accessToken);
@@ -119,6 +123,7 @@ const submitForm = () => {
       setTimeout(() => {
         loading.value = false;
       }, 1000);
+      console.error("Error:", error, error.message, 2345);
       // Handle error from the server or network
     });
 };

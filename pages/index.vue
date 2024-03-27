@@ -333,7 +333,6 @@ const submitForm = () => {
       regFormSubmitted.value = true;
     })
     .catch((error) => {
-      console.error("Error:", error, error.message, 2345);
       setTimeout(() => {
         loading.value = false;
       }, 1000);
