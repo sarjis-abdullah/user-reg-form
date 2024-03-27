@@ -241,12 +241,7 @@
           <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
             {{ errors.otpError }}
           </div>
-          <div
-            class="mt-4 text-center text-green-500"
-            v-if="!errors.otpError && success && !loading"
-          >
-            {{ "Successfully verified your phone!" }}
-          </div>
+          
         </form>
       </section>
     </div>
@@ -256,6 +251,8 @@
 <script setup>
 import { ref } from "vue";
 import Default from "../layouts/Default.vue";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 definePageMeta({
   layout: "Default",
 });
@@ -343,6 +340,11 @@ const submitForm = () => {
       // Handle error from the server or network
     });
 };
+const notify = () => {
+  toast.success("Thanks for the registration.", {
+    autoClose: 2000,
+  }); // ToastOptions
+};
 const submitOtpForm = () => {
   // Options for the fetch request
   const options = {
@@ -373,7 +375,9 @@ const submitOtpForm = () => {
       errors.value.otpError = "";
       otp.value = null;
       userId.value = null;
-      success.value = true;
+      regFormSubmitted.value = false;
+      errors.value = {}
+      notify()
     })
     .catch((error) => {
       console.error("Error:", error);

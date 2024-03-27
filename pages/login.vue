@@ -7,19 +7,19 @@
           @submit.prevent="submitForm"
           class="grid gap-2"
         >
-          <!-- Phone -->
+          <!-- email -->
           <div class="grid gap-2" :style="style">
-            <label for="phone" class="block font-bold">Phone</label>
+            <label for="email" class="block font-bold">Email</label>
             <input
-              type="text"
-              id="phone"
-              v-model="formData.phone"
+              type="email"
+              id="email"
+              v-model="formData.email"
               :class="inputClass"
-              placeholder="e.g. +880123456789"
+              placeholder="e.g. test@mart.com"
               required
             />
-            <span v-if="errors.phone" class="text-red-500">{{
-              errors.phone
+            <span v-if="errors.email" class="text-red-500">{{
+              errors.email
             }}</span>
           </div>
 
@@ -70,7 +70,7 @@ const inputClass =
   "relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500";
 const defaultData = {
   password: "",
-  phone: "",
+  email: "",
 };
 const formData = ref({ ...defaultData });
 
