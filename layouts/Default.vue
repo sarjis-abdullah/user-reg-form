@@ -91,7 +91,7 @@ const route = useRoute();
 const router = useRouter();
 const emit = ["toggleLogin"];
 const { isLogin } = defineProps({
-  isLogin: {
+  isLogin: { 
     type: Boolean,
     default: false,
   },
