@@ -8,7 +8,7 @@
           class="grid gap-2"
         >
           <!-- Name -->
-          <div class="grid gap-2" :style="style">
+          <!-- <div class="grid gap-2" :style="style">
             <label for="name" class="block font-bold">Name</label>
             <input
               type="text"
@@ -21,7 +21,7 @@
             <span v-if="errors.name" class="text-red-500">{{
               errors.name
             }}</span>
-          </div>
+          </div> -->
           <!-- Phone -->
           <div class="grid gap-2" :style="style">
             <label for="phone" class="block font-bold">Phone</label>
@@ -95,10 +95,10 @@
               :class="inputClass"
             >
               <option disabled :value="''">Select Occupation</option>
-              <option value="Engineer">Business</option>
-              <option value="Engineer">Service</option>
-              <option value="Doctor">Student</option>
-              <option value="Teacher">Other</option>
+              <option value="Business">Business</option>
+              <option value="Service">Service</option>
+              <option value="Student">Student</option>
+              <option value="Other">Other</option>
               <!-- Add more options as needed -->
             </select>
           </div>
@@ -184,11 +184,17 @@
               <span class="ml-2">No</span>
             </label>
           </div>
+          <div class="flex gap-4 mt-2">
+            <input type="checkbox" v-model="isAgree"/>
+            <a href="/" class="block underline hover:text-blue-500">I agree with terms & condition</a>
+          </div>
 
           <button
             type="submit"
             v-if="!loading"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+            :disabled="!isAgree"
+            :class="isAgree ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-500 hover:bg-gray-600'"
+            class="text-white px-4 py-2 rounded mt-4"
           >
             Submit
           </button>
@@ -277,6 +283,7 @@ const formData = ref({ ...defaultData });
 
 const errors = ref({});
 const loading = ref(false);
+const isAgree = ref(false);
 const regFormSubmitted = ref(false);
 const success = ref(false);
 const userId = ref(null);
@@ -290,19 +297,6 @@ const formattedData = computed(() => {
 });
 
 const submitForm = () => {
-  // Here you can perform form validation before submitting the data
-  // If validation fails, populate the `errors` object accordingly
-  // If validation passes, you can submit the form data
-  // For demonstration purposes, let's assume validation fails for all fields
-  //   errors.value = {
-  //     name: 'Name field is required.',
-  //     address: 'Address field is required.',
-  //     phone: 'Mobile number field is required.',
-  //     birthDate: 'Birthdate field is required.'
-  //     // Add more error messages for other fields if needed
-  //   };
-
-  // Options for the fetch request
   const options = {
     method: "POST",
     headers: {
