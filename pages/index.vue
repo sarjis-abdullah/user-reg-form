@@ -186,7 +186,7 @@
           </div>
           <div class="flex gap-4 mt-2">
             <input type="checkbox" v-model="isAgree"/>
-            <a href="/" class="block underline hover:text-blue-500">I agree with terms & condition</a>
+            <a :href="TERMS_AND_CONDITION_LINK" target="_blank" class="block underline hover:text-blue-500">I agree with terms & condition</a>
           </div>
 
           <button
@@ -279,6 +279,7 @@ const defaultData = {
   anniversary: "",
   hasComplimentaryCard: false,
 };
+const TERMS_AND_CONDITION_LINK = 'https://l.facebook.com/l.php?u=https%3A%2F%2Freg.kbakery.com.bd%2Fterms%26condition%3Ffbclid%3DIwAR3ZHAuljA8NIQrStmVdluorz8VY4EWvitgrQvpPS5kMCxeboy4-Zgzdvw4_aem_AX98AXyHp5MERWziwe-z6zha2l6MmwgUPO7OD5sOi7nSXQpUMafwcgnJUTJ8BMLSL-5bWtuyrL95BUSdxRFX2OTY&h=AT2B_Sr8ONx6XxdMkG2Dtu1GZBmkicPQY201twhQlPY8-0Djn3DfSQqhPEVrpbjHP1qCCnL3M_HJUKAohCkSMgn6lbnkew774nnlQufP8xmAngdBOEQhsOcrAyUrDA'
 const formData = ref({ ...defaultData });
 
 const errors = ref({});
