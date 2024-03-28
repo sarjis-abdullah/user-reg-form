@@ -7,8 +7,9 @@
           @submit.prevent="submitForm"
           class="grid gap-2"
         >
+        <img src="/assets/khulshi.png" class="bg-white mb-4"/>
           <!-- Name -->
-          <!-- <div class="grid gap-2" :style="style">
+          <div class="grid gap-2" :style="style">
             <label for="name" class="block font-bold">Name</label>
             <input
               type="text"
@@ -21,7 +22,7 @@
             <span v-if="errors.name" class="text-red-500">{{
               errors.name
             }}</span>
-          </div> -->
+          </div>
           <!-- Phone -->
           <div class="grid gap-2" :style="style">
             <label for="phone" class="block font-bold">Phone</label>
@@ -74,7 +75,7 @@
             <label for="email" class="block font-bold">Email</label>
             <input
               type="email"
-              id="email"
+              id="emailid"
               v-model="formData.email"
               placeholder="e.g. john@gmail.com"
               :class="inputClass"
@@ -371,6 +372,7 @@ const submitOtpForm = () => {
       userId.value = null;
       regFormSubmitted.value = false;
       errors.value = {}
+      isAgree.value = false
       notify()
     })
     .catch((error) => {
