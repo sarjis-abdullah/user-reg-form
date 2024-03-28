@@ -1,5 +1,10 @@
 <template>
-  <Disclosure as="nav" class="bg-white shadow sticky top-0 z-50" v-slot="{ open }">
+  <Disclosure
+    v-if="loginAccount"
+    as="nav"
+    class="bg-white shadow sticky top-0 z-50"
+    v-slot="{ open }"
+  >
     <div class="mx-auto max-w-7xl mb-4">
       <div class="relative flex h-16 justify-between">
         <div
@@ -82,16 +87,25 @@
       </div>
     </DisclosurePanel>
   </Disclosure>
-  <slot></slot>
+  <NuxtParticles
+    id="tsparticles"
+    :options="options"
+    @load="onLoad"
+  ></NuxtParticles>
+  <section class="relative z-[100] "> 
+    <slot></slot>
+  </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { Container } from "@tsparticles/engine";
+
 import { ref } from "vue";
 const route = useRoute();
 const router = useRouter();
 const emit = ["toggleLogin"];
 const { isLogin } = defineProps({
-  isLogin: { 
+  isLogin: {
     type: Boolean,
     default: false,
   },
@@ -125,6 +139,39 @@ const logout = () => {
   removedAccount.value = true;
   window.localStorage.removeItem("LOGIN_ACCOUNT");
   window.localStorage.removeItem("ACCESS_TOKEN");
-  router.push("/login");
+  router.push("/");
+};
+
+const options = {
+  fullScreen: {
+    enable: true,
+    zIndex: -1
+  },
+  background: {
+    color: {
+      value: '#fff'
+    }
+  },
+  particles: {
+    color: {
+      value: "#89BC40"
+    },
+    links: {
+      color: "FFC20E",
+      enable: true
+    },
+    move: {
+      enable: true
+    },
+    number: {
+      value: 100
+    }
+  }
+}
+
+const onLoad = (container: Container) => {
+  // Do something with the container
+  container.pause();
+  setTimeout(() => container.play(), 2000);
 };
 </script>

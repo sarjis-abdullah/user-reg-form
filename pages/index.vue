@@ -1,6 +1,6 @@
 <template>
   <Default>
-    <div class="p-4 max-w-lg mx-auto shadow-2xl">
+    <div class="p-4 max-w-lg mx-auto shadow-2xl bg-white">
       <section class="p-4">
         <form
           v-if="!regFormSubmitted"
@@ -10,7 +10,7 @@
         <img src="/assets/khulshi.png" class="bg-white mb-4"/>
           <!-- Name -->
           <div class="grid gap-2" :style="style">
-            <label for="name" class="block font-bold">Name</label>
+            <label for="name" :class="brandColor" class="block font-bold">Name</label>
             <input
               type="text"
               id="name"
@@ -25,7 +25,7 @@
           </div>
           <!-- Phone -->
           <div class="grid gap-2" :style="style">
-            <label for="phone" class="block font-bold">Phone</label>
+            <label for="phone" :class="brandColor" class="block font-bold">Phone</label>
             <input
               type="text"
               id="phone"
@@ -41,7 +41,7 @@
 
           <!-- Birth Date -->
           <div class="grid gap-2" :style="style">
-            <label for="birthDate" class="block font-bold">Birth Date</label>
+            <label for="birthDate" :class="brandColor" class="block font-bold">Birth Date</label>
             <input
               type="date"
               id="birthDate"
@@ -56,7 +56,7 @@
 
           <!-- Address -->
           <div class="grid gap-2" :style="style">
-            <label for="address" class="block font-bold">Address</label>
+            <label for="address" :class="brandColor" class="block font-bold">Address</label>
             <input
               type="text"
               id="address"
@@ -72,7 +72,7 @@
 
           <!-- Email -->
           <div class="grid gap-2" :style="style">
-            <label for="email" class="block font-bold">Email</label>
+            <label for="email" :class="brandColor" class="block font-bold">Email</label>
             <input
               type="email"
               id="emailid"
@@ -87,7 +87,7 @@
 
           <!-- Occupation -->
           <div class="grid gap-2" :style="style">
-            <label for="occupation" class="block font-bold">Occupation</label>
+            <label for="occupation" :class="brandColor" class="block font-bold">Occupation</label>
             <select
               id="occupation"
               v-model="formData.occupation"
@@ -106,7 +106,7 @@
 
           <!-- Family Members -->
           <div class="grid gap-2" :style="style">
-            <label for="familyMembers" class="block font-bold"
+            <label for="familyMembers" :class="brandColor" class="block font-bold"
               >Family Members</label
             >
             <select
@@ -126,7 +126,7 @@
 
           <!-- Anniversary -->
           <div class="grid gap-2" :style="style">
-            <label for="anniversary" class="block font-bold">Anniversary</label>
+            <label for="anniversary" :class="brandColor" class="block font-bold">Anniversary</label>
             <input
               type="date"
               id="anniversary"
@@ -140,7 +140,7 @@
 
           <!-- Gender -->
           <div class="flex gap-4 mt-2" style="">
-            <label class="block font-bold">Gender</label>
+            <label :class="brandColor" class="block font-bold">Gender</label>
             <label class="inline-flex items-center">
               <input
                 type="radio"
@@ -163,7 +163,7 @@
             </label>
           </div>
           <div class="flex gap-4 mt-2">
-            <label class="block font-bold">Complimentary Card</label>
+            <label :class="brandColor" class="block font-bold">Complimentary Card</label>
             <label class="inline-flex items-center">
               <input
                 type="radio"
@@ -187,14 +187,14 @@
           </div>
           <div class="flex gap-4 mt-2">
             <input type="checkbox" v-model="isAgree"/>
-            <a :href="TERMS_AND_CONDITION_LINK" target="_blank" class="block underline hover:text-blue-500">I agree with terms & condition</a>
+            <a :class="brandColor" :href="TERMS_AND_CONDITION_LINK" target="_blank" class="block underline hover:text-blue-500">I agree with terms & condition</a>
           </div>
 
           <button
             type="submit"
             v-if="!loading"
             :disabled="!isAgree"
-            :class="isAgree ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-500 hover:bg-gray-600'"
+            :class="isAgree ? 'bg-[#89BC40] hover:bg-[#89BC40]' : 'bg-gray-500 hover:bg-gray-600'"
             class="text-white px-4 py-2 rounded mt-4"
           >
             Submit
@@ -240,7 +240,7 @@
             type="submit"
             :disabled="otp == '' || otp == null"
             v-if="!loading"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+            class="bg-[#89BC40] hover:bg-[#89BC40] text-white px-4 py-2 rounded mt-4"
           >
             Submit
           </button>
@@ -290,6 +290,7 @@ const regFormSubmitted = ref(false);
 const success = ref(false);
 const userId = ref(null);
 const otp = ref("");
+const brandColor = ref("");
 
 const formattedData = computed(() => {
   return {

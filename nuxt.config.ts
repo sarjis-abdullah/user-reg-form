@@ -18,4 +18,7 @@ export default defineNuxtConfig({
   nitro: {
     // plugins: ["~/server/index.js"],
   },
+  modules: [
+    'nuxt-particles'
+  ]
 });
