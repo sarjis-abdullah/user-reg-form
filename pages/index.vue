@@ -272,28 +272,30 @@
             </div>
           </section>
 
-          <div class="flex gap-4 mt-6">
-            <input type="checkbox" v-model="isAgree" />
-            <a
-              :class="brandColor"
-              :href="TERMS_AND_CONDITION_LINK"
-              target="_blank"
-              class="block underline hover:text-blue-500"
-              >I agree with terms & condition</a
+          <div class="fixed md:static bottom-[0] bg-white z-[1000] px-4 pb-4 md:px-0">
+            <div class="flex gap-4 mt-6">
+              <input type="checkbox" v-model="isAgree" />
+              <a
+                :class="brandColor"
+                :href="TERMS_AND_CONDITION_LINK"
+                target="_blank"
+                class="block underline hover:text-blue-500"
+                >I agree with terms & condition</a
+              >
+            </div>
+            <button
+              type="submit"
+              :disabled="!isAgree || loading"
+              :class="
+                isAgree
+                  ? 'bg-[#89BC40] hover:bg-[#89BC40]'
+                  : 'bg-gray-500 hover:bg-gray-600'
+              "
+              class="text-white px-4 py-2 rounded mt-4 w-full"
             >
+              {{ !loading ? "Submit" : "Processing" }}
+            </button>
           </div>
-          <button
-            type="submit"
-            :disabled="!isAgree || loading"
-            :class="
-              isAgree
-                ? 'bg-[#89BC40] hover:bg-[#89BC40]'
-                : 'bg-gray-500 hover:bg-gray-600'
-            "
-            class="text-white px-4 py-2 rounded mt-4 w-full"
-          >
-            {{ !loading ? "Submit" : "Processing" }}
-          </button>
         </form>
 
         <form v-else @submit.prevent="submitOtpForm" class="grid gap-2">
