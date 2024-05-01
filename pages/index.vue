@@ -12,24 +12,40 @@
             <!-- Name -->
             <div class="grid gap-2" :style="style">
               <label for="name" :class="brandColor" class="block font-bold"
-                >Name</label
+                >First Name <span class="text-red-500">*</span></label
               >
               <input
                 type="text"
                 id="name"
                 v-model="formData.name"
                 :class="inputClass"
-                placeholder="e.g. John Doe"
+                placeholder="e.g. John"
                 required
               />
               <span v-if="errors.name" class="text-red-500">{{
                 errors.name
               }}</span>
             </div>
+            <div class="grid gap-2" :style="style">
+              <label for="name" :class="brandColor" class="block font-bold"
+                >Last Name <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="name"
+                v-model="formData.lastName"
+                :class="inputClass"
+                placeholder="e.g. Doe"
+                required
+              />
+              <span v-if="errors.name" class="text-red-500">{{
+                errors.lastName
+              }}</span>
+            </div>
             <!-- Phone -->
             <div class="grid gap-2" :style="style">
               <label for="phone" :class="brandColor" class="block font-bold"
-                >Phone</label
+                >Phone <span class="text-red-500">*</span></label
               >
               <input
                 type="text"
@@ -47,7 +63,7 @@
             <!-- Birth Date -->
             <div class="grid gap-2" :style="style">
               <label for="birthDate" :class="brandColor" class="block font-bold"
-                >Birth Date</label
+                > Date of Birth <span class="text-red-500">*</span></label
               >
               <input
                 type="date"
@@ -60,11 +76,28 @@
                 errors.birthDate
               }}</span>
             </div>
+            <!-- Email -->
+            <div class="grid gap-2" :style="style">
+              <label for="email" :class="brandColor" class="block font-bold"
+                >Email <span class="text-red-500">*</span></label
+              >
+              <input
+                type="email"
+                id="emailid"
+                v-model="formData.email"
+                placeholder="e.g. john@gmail.com"
+                :class="inputClass"
+                required
+              />
+              <span v-if="errors.email" class="text-red-500">{{
+                errors.email
+              }}</span>
+            </div>
 
             <!-- Address -->
             <div class="grid gap-2" :style="style">
               <label for="address" :class="brandColor" class="block font-bold"
-                >Address</label
+                >Address <span class="text-red-500">*</span></label
               >
               <input
                 type="text"
@@ -79,24 +112,35 @@
               }}</span>
             </div>
 
-            <!-- Email -->
-            <div class="grid gap-2" :style="style">
-              <label for="email" :class="brandColor" class="block font-bold"
-                >Email</label
-              >
-              <input
-                type="email"
-                id="emailid"
-                v-model="formData.email"
-                placeholder="e.g. john@gmail.com"
-                :class="inputClass"
-              />
-              <span v-if="errors.email" class="text-red-500">{{
-                errors.email
-              }}</span>
-            </div>
+            
 
             <!-- Occupation -->
+            <div class="grid gap-2" :style="style">
+              <label
+                for="occupation"
+                :class="brandColor"
+                class="block font-bold"
+                >Blood Group</label
+              >
+              <select
+                id="occupation"
+                v-model="formData.bloodGroup"
+                class="focus:outline-none bg-none"
+                style="background: none"
+                :class="inputClass"
+              >
+                <option disabled :value="''">Select your blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
             <div class="grid gap-2" :style="style">
               <label
                 for="occupation"
@@ -302,6 +346,7 @@ const inputClass =
   "relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500";
 const defaultData = {
   name: "",
+  lastName: "",
   address: "",
   phone: "",
   birthDate: "",
@@ -310,6 +355,7 @@ const defaultData = {
   familyMembers: "",
   gender: "",
   anniversary: "",
+  bloodGroup: "",
   hasComplimentaryCard: false,
 };
 const TERMS_AND_CONDITION_LINK =
