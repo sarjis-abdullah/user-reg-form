@@ -9,13 +9,19 @@
       :class="!regFormSubmitted ? 'px-4' : 'pb-4'"
     >
       <section class="order-2 px-4 pb-">
-        <nav class="sticky top-0 bg-white z-[101] pb-4">
+        <nav class="sticky top-0 bg-white z-[101]">
           <center class="h-[100px] py-4">
             <img
               :width="250"
               :height="150"
               src="/assets/khulshi.png"
-              class="bg-white"
+              class="bg-white hidden md:block"
+            />
+            <img
+              :width="150"
+              :height="100"
+              src="/assets/khulshi.png"
+              class="bg-white sm:block md:hidden"
             />
           </center>
         </nav>

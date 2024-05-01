@@ -151,17 +151,23 @@
         </div>
       </div>
     </div>
-    <div
+    <!-- <div
       class="text-center flex items-center justify-center"
       v-else-if="loading"
     >
       Loading
+    </div> -->
+    <div
+      class="text-center flex items-center justify-center"
+      v-else-if="userList.length == 0"
+    >
+      {{loading ? 'Loading' : 'No data'}}
     </div>
     <div
       class="text-center flex items-center justify-center"
-      v-else-if="!loading && userList.length == 0"
+      v-else
     >
-      No data
+      {{'Loading'}}
     </div>
 
     <Pagination
@@ -232,7 +238,7 @@ const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "customer-list" }
 
 const searchQuery = ref("");
 const errors = ref({});
-const loading = ref(false);
+const loading = ref(true);
 const userList = ref([]);
 const success = ref(false);
 const userId = ref(null);
