@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 sm:px-6 lg:px-8 max-w-[90rem] mx-auto shadow-2xl">
     <section class="grid grid-cols-3">
-      <div class="grid gap-2">
+      <div class="flex gap-2">
         <!-- <label for="search" class="block font-bold">Password</label> -->
         <input
           type="text"
@@ -11,6 +11,15 @@
           placeholder="Search by phone number"
           class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500"
         />
+      </div>
+      <div></div>
+      <div class="text-right">
+        <button
+          class="bg-[#89BC40] hover:bg-[#89BC40] text-white px-4 py-2 rounded"
+          @click="downloadCsv"
+        >
+          Export CSV
+        </button>
       </div>
     </section>
     <div class="mt-8 flow-root" v-if="!loading && userList?.length">
@@ -155,6 +164,7 @@
     >
       No data
     </div>
+
     <Pagination
       class="mt-6"
       :perPage="perPage"
@@ -163,7 +173,11 @@
       :totalPerPage="totalPerPage"
       @onChange="onPageChanged"
     >
-    <select class="focus:outline-none bg-none" v-model="perPage" @change="loadData">
+      <select
+        class="focus:outline-none bg-none"
+        v-model="perPage"
+        @change="loadData"
+      >
         <option>10</option>
         <option>25</option>
         <option>50</option>
@@ -171,12 +185,14 @@
         <option>200</option>
         <option>500</option>
         <option>1000</option>
-    </select>
-</Pagination>
+      </select>
+    </Pagination>
   </div>
 </template>
 
 <script setup>
+import { mkConfig, generateCsv, download } from "export-to-csv";
+
 import { ref } from "vue";
 // import debounce from "lodash.debounce";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -193,8 +209,10 @@ const total = ref(0);
 const perPage = ref(10);
 const totalPerPage = ref(0);
 
-const url = computed(()=> {
-    return config.public.BASE_URL + `user?per_page=${perPage.value}&page=${page.value}`
+const url = computed(() => {
+  return (
+    config.public.BASE_URL + `user?per_page=${perPage.value}&page=${page.value}`
+  );
 });
 const style = "";
 const inputClass =
@@ -211,6 +229,7 @@ const defaultData = {
   anniversary: "",
   hasComplimentaryCard: false,
 };
+const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "user-list" });
 
 const searchQuery = ref("");
 const errors = ref({});
@@ -255,7 +274,7 @@ const loadData = (query = "") => {
     })
     .then((res) => {
       // Process the retrieved data
-      const {data, meta} = res
+      const { data, meta } = res;
       userList.value = data;
       loading.value = false;
 
@@ -275,10 +294,44 @@ const search = async () => {
 };
 // const debouncedSearch = debounce(search, 500);
 const debouncedSearch = useDebounce(search, 500);
-const onPageChanged = (p)=> {
-    page.value = p
-    loadData()
-}
+const onPageChanged = (p) => {
+  page.value = p;
+  loadData();
+};
+const downloadCsv = () => {
+  const newArray = userList.value.map((obj, index) => {
+    // Iterate over each property in the object
+    const newObj = {};
+    for (const key in obj) {
+      // Check if the property value is null
+      if (obj[key] == null || obj[key] == undefined) {
+        newObj[key] = "";
+      } else if (obj[key] == 0) {
+        newObj[key] = "No";
+      } else if (obj[key] == 1) {
+        newObj[key] = "Yes";
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+    return {
+      "SL No": index + 1,
+      "First Name": newObj.name,
+      "Last Name": newObj.lastName,
+      Phone: newObj.phone,
+      Email: newObj.email,
+      Address: newObj.address,
+      "Date of Birth": newObj.birthDate,
+      "Blood Group": newObj.bloodGroup,
+      Occupation: newObj.occupation,
+      "Family Member": newObj.familyMembers,
+      "Complimentary Card": newObj.hasComplimentaryCard,
+      Gender: newObj.familyMembers,
+    };
+  });
+  const csv = generateCsv(csvConfig)(newArray);
+  download(csvConfig)(csv);
+};
 onMounted(() => {
   if (window?.localStorage?.getItem("ACCESS_TOKEN")) {
     loadData();
