@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto shadow-2xl">
+    <div class="px-4 sm:px-6 lg:px-8 max-w-[90rem] mx-auto shadow-2xl overflow-x-auto">
       <section class="grid grid-cols-3">
               <div class="grid gap-2">
                 <!-- <label for="search" class="block font-bold">Password</label> -->

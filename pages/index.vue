@@ -5,17 +5,17 @@
     style="background-image: linear-gradient(45deg, #daeaa5, #89bbef)"
   >
     <div
-      class=" md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
-      :class="!regFormSubmitted ? 'px-4' : 'p-4'"
+      class="md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
+      :class="!regFormSubmitted ? 'px-4' : 'pb-4'"
     >
       <section class="order-2 px-4 pb-">
-        <nav class="sticky top-0 bg-white z-[101]">
-          <center class="h-[100px]">
+        <nav class="sticky top-0 bg-white z-[101] pb-4">
+          <center class="h-[100px] py-4">
             <img
               :width="250"
               :height="150"
               src="/assets/khulshi.png"
-              class="bg-white mb-4"
+              class="bg-white"
             />
           </center>
         </nav>
@@ -273,7 +273,9 @@
             </div>
           </section>
 
-          <div class="fixed md:static bottom-[0] bg-white z-[1000] px-4 pb-4 md:px-0">
+          <div
+            class="fixed md:static bottom-[0] bg-white z-[1000] px-4 pb-4 md:px-0"
+          >
             <div class="flex gap-4 mt-6">
               <input type="checkbox" v-model="isAgree" />
               <a
@@ -300,20 +302,7 @@
         </form>
 
         <form v-else @submit.prevent="submitOtpForm" class="grid gap-2">
-          <label
-            @click="
-              () => {
-                success = false;
-                isAgree = false;
-                regFormSubmitted = false;
-                errors.otpError = '';
-                otp = '';
-                errors = {};
-              }
-            "
-            class="block cursor-pointer"
-            >< Back</label
-          >
+          
           <!-- Name -->
           <div class="grid gap-2" :style="style">
             <label for="name" class="block font-bold">OTP</label>
@@ -330,15 +319,31 @@
             }}</span>
           </div>
 
-          <button
-            type="submit"
-            :disabled="otp == '' || otp == null"
-            v-if="!loading"
-            class="bg-[#89BC40] hover:bg-[#89BC40] text-white px-4 py-2 rounded mt-4"
-          >
-            Submit
-          </button>
-          <span v-else>Processing</span>
+          <div class="flex justify-end gap-2">
+            <button
+              type="button"
+              @click="
+                () => {
+                  success = false;
+                  isAgree = false;
+                  regFormSubmitted = false;
+                  errors.otpError = '';
+                  otp = '';
+                  errors = {};
+                }
+              "
+              class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded mt-4"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              :disabled="otp == '' || otp == null || loading"
+              class="bg-[#89BC40] hover:bg-[#6d992f] text-white px-4 py-2 rounded mt-4"
+            >
+              {{ !loading ? "Submit" : "Processing" }}
+            </button>
+          </div>
           <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
             {{ errors.otpError }}
           </div>
@@ -485,21 +490,22 @@ const submitOtpForm = () => {
     });
 };
 </script>
-<style>
+<style scoped>
 .aaa {
   /* background-image: url("assets/bg-image-1.jpg"); */
 }
 ::-webkit-scrollbar {
   width: 1px; /* Adjust width as needed */
+  height: 0px;
 }
 
 /* Optionally, you can style the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Change background color as needed */
+  background-color: green; /* Change background color as needed */
 }
 
 /* Optionally, you can style the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: #888; /* Change thumb color as needed */
+  background-color: white; /* Change thumb color as needed */
 }
 </style>

@@ -4,7 +4,7 @@
     class="bg-white shadow sticky top-0 z-50"
     v-slot="{ open }"
   >
-    <div class="mx-auto max-w-7xl mb-4">
+    <div class="mx-auto max-w-[90rem] mb-4">
       <div class="relative flex h-16 justify-between">
         <div
           class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
