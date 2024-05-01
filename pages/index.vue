@@ -1,14 +1,21 @@
 <template>
   <Default>
-    <section class="grid items-center h-screen">
+    <section class="grid items-center aaa">
       <div class="p-4 min-w-[30rem] max-w-lg mx-auto shadow-2xl bg-white">
         <section class="p-4">
+          <center>
+            <img
+              :width="250"
+              :height="150"
+              src="/assets/khulshi.png"
+              class="bg-white mb-4"
+            />
+          </center>
           <form
             v-if="!regFormSubmitted"
             @submit.prevent="submitForm"
             class="grid gap-2"
           >
-          <center><img :width="250" :height="150" src="/assets/khulshi.png" class="bg-white mb-4"  /> </center>
             <!-- Name -->
             <div class="grid gap-2" :style="style">
               <label for="name" :class="brandColor" class="block font-bold"
@@ -62,8 +69,12 @@
 
             <!-- Birth Date -->
             <div class="grid gap-2" :style="style">
-              <label for="birthDate" :class="brandColor" class="block font-bold"
-                > Date of Birth <span class="text-red-500">*</span></label
+              <label
+                for="birthDate"
+                :class="brandColor"
+                class="block font-bold"
+              >
+                Date of Birth <span class="text-red-500">*</span></label
               >
               <input
                 type="date"
@@ -111,8 +122,6 @@
                 errors.address
               }}</span>
             </div>
-
-            
 
             <!-- Occupation -->
             <div class="grid gap-2" :style="style">
@@ -465,3 +474,8 @@ const submitOtpForm = () => {
     });
 };
 </script>
+<style scoped>
+.aaa {
+  background-image: url("assets/bg-image-1.jpg");
+}
+</style>
