@@ -4,8 +4,8 @@
     style="background-image: linear-gradient(45deg, #daeaa5, #89bbef)"
   >
     <div
-      class="px-4 md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
-      style=""
+      class=" md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
+      :class="!regFormSubmitted ? 'px-4' : 'p-4'"
     >
       <section class="order-2 px-4 pb-">
         <nav class="sticky top-0 bg-white z-[101]">
@@ -303,6 +303,7 @@
             @click="
               () => {
                 success = false;
+                isAgree = false;
                 regFormSubmitted = false;
                 errors.otpError = '';
                 otp = '';
