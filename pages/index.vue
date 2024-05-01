@@ -8,7 +8,7 @@
             @submit.prevent="submitForm"
             class="grid gap-2"
           >
-            <img src="/assets/khulshi.png" class="bg-white mb-4" />
+          <center><img :width="250" :height="150" src="/assets/khulshi.png" class="bg-white mb-4"  /> </center>
             <!-- Name -->
             <div class="grid gap-2" :style="style">
               <label for="name" :class="brandColor" class="block font-bold"
