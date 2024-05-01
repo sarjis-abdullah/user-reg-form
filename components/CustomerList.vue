@@ -2,7 +2,6 @@
   <div class="px-4 sm:px-6 lg:px-8 max-w-[90rem] mx-auto shadow-2xl">
     <section class="grid grid-cols-3">
       <div class="flex gap-2">
-        <!-- <label for="search" class="block font-bold">Password</label> -->
         <input
           type="text"
           id="search"
@@ -153,13 +152,13 @@
       </div>
     </div>
     <div
-      class="text-center h-screen flex items-center justify-center"
+      class="text-center flex items-center justify-center"
       v-else-if="loading"
     >
       Loading
     </div>
     <div
-      class="text-center h-screen flex items-center justify-center"
+      class="text-center flex items-center justify-center"
       v-else-if="!loading && userList.length == 0"
     >
       No data
@@ -229,7 +228,7 @@ const defaultData = {
   anniversary: "",
   hasComplimentaryCard: false,
 };
-const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "user-list" });
+const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "customer-list" });
 
 const searchQuery = ref("");
 const errors = ref({});
@@ -255,7 +254,7 @@ const loadData = (query = "") => {
       : null;
   let finalUrl = url.value;
   if (searchQuery.value != "") {
-    finalUrl += `?phone=${query}`;
+    finalUrl += `&phone=${query}`;
   }
   fetch(finalUrl, {
     headers: { Authorization: "Bearer " + token },
