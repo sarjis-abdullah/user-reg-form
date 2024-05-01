@@ -1,6 +1,7 @@
 <template>
   <section
-    class="grid items-center scrollable-container md:h-screen"
+    class="grid items-center scrollable-container"
+    :class="!regFormSubmitted ? 'md:h-screen' : 'h-screen'"
     style="background-image: linear-gradient(45deg, #daeaa5, #89bbef)"
   >
     <div
