@@ -1,345 +1,350 @@
 <template>
-  <Default>
-    <section class="grid items-center aaa h-screen scrollable-container" style="background-image: linear-gradient(45deg, #DAEAA5, #89BBEF);">
-      <div class="p-4 min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white" style="">
-        <section class="order-2 px-4 pb-">
+  <section
+    class="grid items-center scrollable-container"
+    style="background-image: linear-gradient(45deg, #daeaa5, #89bbef)"
+  >
+    <div
+      class="p-4 md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
+      style=""
+    >
+      <section class="order-2 px-4 pb-">
+        <nav class="sticky top-0 bg-white z-[101]">
           <center class="h-[100px]">
             <img
-              
+              :width="250"
+              :height="150"
               src="/assets/khulshi.png"
               class="bg-white mb-4"
             />
-            <!-- <NuxtImg :width="250"
-              :height="150" src="/assets/khulshi.png" /> -->
           </center>
-          <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
-            <section class="grid gap-2 grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
-              <!-- Name -->
-              <div class="grid gap-2" :style="style">
-                <label for="name" :class="brandColor" class="block font-bold"
-                  >First Name <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="text"
-                  id="name"
-                  v-model="formData.name"
-                  :class="inputClass"
-                  placeholder="e.g. John"
-                  required
-                />
-                <span v-if="errors.name" class="text-red-500">{{
-                  errors.name
-                }}</span>
-              </div>
-              <div class="grid gap-2" :style="style">
-                <label for="name" :class="brandColor" class="block font-bold"
-                  >Last Name <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="text"
-                  id="name"
-                  v-model="formData.lastName"
-                  :class="inputClass"
-                  placeholder="e.g. Doe"
-                  required
-                />
-                <span v-if="errors.name" class="text-red-500">{{
-                  errors.lastName
-                }}</span>
-              </div>
-              <!-- Phone -->
-              <div class="grid gap-2" :style="style">
-                <label for="phone" :class="brandColor" class="block font-bold"
-                  >Phone <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="text"
-                  id="phone"
-                  v-model="formData.phone"
-                  :class="inputClass"
-                  placeholder="e.g. +880123456789"
-                  required
-                />
-                <span v-if="errors.phone" class="text-red-500">{{
-                  errors.phone
-                }}</span>
-              </div>
-
-              <!-- Birth Date -->
-              <div class="grid gap-2" :style="style">
-                <label
-                  for="birthDate"
-                  :class="brandColor"
-                  class="block font-bold"
-                >
-                  Date of Birth <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="date"
-                  id="birthDate"
-                  v-model="formData.birthDate"
-                  :class="inputClass"
-                  required
-                />
-                <span v-if="errors.birthDate" class="text-red-500">{{
-                  errors.birthDate
-                }}</span>
-              </div>
-              <!-- Email -->
-              <div class="grid gap-2" :style="style">
-                <label for="email" :class="brandColor" class="block font-bold"
-                  >Email <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="email"
-                  id="emailid"
-                  v-model="formData.email"
-                  placeholder="e.g. john@gmail.com"
-                  :class="inputClass"
-                  required
-                />
-                <span v-if="errors.email" class="text-red-500">{{
-                  errors.email
-                }}</span>
-              </div>
-
-              <!-- Address -->
-              <div class="grid gap-2" :style="style">
-                <label for="address" :class="brandColor" class="block font-bold"
-                  >Address <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="text"
-                  id="address"
-                  v-model="formData.address"
-                  :class="inputClass"
-                  placeholder="e.g. 1 no road, Khulshi, Chittagong"
-                  required
-                />
-                <span v-if="errors.address" class="text-red-500">{{
-                  errors.address
-                }}</span>
-              </div>
-
-              <!-- Occupation -->
-              <div class="grid gap-2" :style="style">
-                <label
-                  for="occupation"
-                  :class="brandColor"
-                  class="block font-bold"
-                  >Blood Group</label
-                >
-                <select
-                  id="occupation"
-                  v-model="formData.bloodGroup"
-                  class="focus:outline-none bg-none"
-                  style="background: none"
-                  :class="inputClass"
-                >
-                  <option disabled :value="''">Select your blood group</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                  <!-- Add more options as needed -->
-                </select>
-              </div>
-              <div class="grid gap-2" :style="style">
-                <label
-                  for="occupation"
-                  :class="brandColor"
-                  class="block font-bold"
-                  >Occupation</label
-                >
-                <select
-                  id="occupation"
-                  v-model="formData.occupation"
-                  class="focus:outline-none bg-none"
-                  style="background: none"
-                  :class="inputClass"
-                >
-                  <option disabled :value="''">Select Occupation</option>
-                  <option value="Business">Business</option>
-                  <option value="Service">Service</option>
-                  <option value="Student">Student</option>
-                  <option value="Other">Other</option>
-                  <!-- Add more options as needed -->
-                </select>
-              </div>
-
-              <!-- Family Members -->
-              <div class="grid gap-2" :style="style">
-                <label
-                  for="familyMembers"
-                  :class="brandColor"
-                  class="block font-bold"
-                  >Family Members</label
-                >
-                <select
-                  id="familyMembers"
-                  v-model="formData.familyMembers"
-                  class="focus:outline-none bg-none"
-                  :class="inputClass"
-                  style="background: none"
-                >
-                  <option disabled :value="''">Select Family Members</option>
-                  <option value="1-3">1-3</option>
-                  <option value="4-6">4-6</option>
-                  <option value="7-Above">7-Above</option>
-                  <!-- Add more options as needed -->
-                </select>
-              </div>
-
-              <!-- Anniversary -->
-              <div class="grid gap-2" :style="style">
-                <label
-                  for="anniversary"
-                  :class="brandColor"
-                  class="block font-bold"
-                  >Anniversary</label
-                >
-                <input
-                  type="date"
-                  id="anniversary"
-                  v-model="formData.anniversary"
-                  :class="inputClass"
-                />
-                <span v-if="errors.anniversary" class="text-red-500">{{
-                  errors.anniversary
-                }}</span>
-              </div>
-
-              <!-- Gender -->
-              <div class="flex gap-4 mt-2" style="">
-                <label :class="brandColor" class="block font-bold"
-                  >Gender</label
-                >
-                <label class="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="gender"
-                    v-model="formData.gender"
-                    value="Male"
-                    class="form-radio"
-                  />
-                  <span class="ml-2">Male</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="gender"
-                    v-model="formData.gender"
-                    value="Female"
-                    class="form-radio"
-                  />
-                  <span class="ml-2">Female</span>
-                </label>
-              </div>
-              <div class="flex gap-4 mt-2">
-                <label :class="brandColor" class="block font-bold"
-                  >Complimentary Card</label
-                >
-                <label class="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="card"
-                    v-model="formData.hasComplimentaryCard"
-                    value="Yes"
-                    class="form-radio"
-                  />
-                  <span class="ml-2">Yes</span>
-                </label>
-                <label class="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="card"
-                    v-model="formData.hasComplimentaryCard"
-                    value="No"
-                    class="form-radio"
-                  />
-                  <span class="ml-2">No</span>
-                </label>
-              </div>
-            </section>
-
-            <div class="flex gap-4 mt-6">
-              <input type="checkbox" v-model="isAgree" />
-              <a
-                :class="brandColor"
-                :href="TERMS_AND_CONDITION_LINK"
-                target="_blank"
-                class="block underline hover:text-blue-500"
-                >I agree with terms & condition</a
-              >
-            </div>
-            <button
-              type="submit"
-              :disabled="!isAgree || loading"
-              :class="
-                isAgree
-                  ? 'bg-[#89BC40] hover:bg-[#89BC40]'
-                  : 'bg-gray-500 hover:bg-gray-600'
-              "
-              class="text-white px-4 py-2 rounded mt-4 w-full"
-            >
-              {{!loading ? 'Submit' : 'Processing'}}
-            </button>
-          </form>
-
-          <form v-else @submit.prevent="submitOtpForm" class="grid gap-2">
-            <label
-              @click="
-                () => {
-                  success = false;
-                  regFormSubmitted = false;
-                  errors.otpError = '';
-                  otp = '';
-                  errors = {};
-                }
-              "
-              class="block cursor-pointer"
-              >< Back</label
-            >
+        </nav>
+        <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
+          <section
+            class="grid gap-2 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto"
+          >
             <!-- Name -->
             <div class="grid gap-2" :style="style">
-              <label for="name" class="block font-bold">OTP</label>
+              <label for="name" :class="brandColor" class="block font-bold"
+                >First Name <span class="text-red-500">*</span></label
+              >
               <input
                 type="text"
                 id="name"
-                v-model="otp"
+                v-model="formData.name"
                 :class="inputClass"
-                placeholder="e.g. 1234"
+                placeholder="e.g. John"
                 required
               />
-              <span v-if="errors?.otp" class="text-red-500">{{
-                errors.otp
+              <span v-if="errors.name" class="text-red-500">{{
+                errors.name
+              }}</span>
+            </div>
+            <div class="grid gap-2" :style="style">
+              <label for="name" :class="brandColor" class="block font-bold"
+                >Last Name <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="name"
+                v-model="formData.lastName"
+                :class="inputClass"
+                placeholder="e.g. Doe"
+                required
+              />
+              <span v-if="errors.name" class="text-red-500">{{
+                errors.lastName
+              }}</span>
+            </div>
+            <!-- Phone -->
+            <div class="grid gap-2" :style="style">
+              <label for="phone" :class="brandColor" class="block font-bold"
+                >Phone <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="phone"
+                v-model="formData.phone"
+                :class="inputClass"
+                placeholder="e.g. +880123456789"
+                required
+              />
+              <span v-if="errors.phone" class="text-red-500">{{
+                errors.phone
               }}</span>
             </div>
 
-            <button
-              type="submit"
-              :disabled="otp == '' || otp == null"
-              v-if="!loading"
-              class="bg-[#89BC40] hover:bg-[#89BC40] text-white px-4 py-2 rounded mt-4"
-            >
-              Submit
-            </button>
-            <span v-else>Processing</span>
-            <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
-              {{ errors.otpError }}
+            <!-- Birth Date -->
+            <div class="grid gap-2" :style="style">
+              <label
+                for="birthDate"
+                :class="brandColor"
+                class="block font-bold"
+              >
+                Date of Birth <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="birthDate"
+                v-model="formData.birthDate"
+                :class="inputClass"
+                required
+              />
+              <span v-if="errors.birthDate" class="text-red-500">{{
+                errors.birthDate
+              }}</span>
             </div>
-          </form>
-        </section>
-        <!-- <section class="order-1">
+            <!-- Email -->
+            <div class="grid gap-2" :style="style">
+              <label for="email" :class="brandColor" class="block font-bold"
+                >Email <span class="text-red-500">*</span></label
+              >
+              <input
+                type="email"
+                id="emailid"
+                v-model="formData.email"
+                placeholder="e.g. john@gmail.com"
+                :class="inputClass"
+                required
+              />
+              <span v-if="errors.email" class="text-red-500">{{
+                errors.email
+              }}</span>
+            </div>
+
+            <!-- Address -->
+            <div class="grid gap-2" :style="style">
+              <label for="address" :class="brandColor" class="block font-bold"
+                >Address <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="address"
+                v-model="formData.address"
+                :class="inputClass"
+                placeholder="e.g. 1 no road, Khulshi, Chittagong"
+                required
+              />
+              <span v-if="errors.address" class="text-red-500">{{
+                errors.address
+              }}</span>
+            </div>
+
+            <!-- Occupation -->
+            <div class="grid gap-2" :style="style">
+              <label
+                for="occupation"
+                :class="brandColor"
+                class="block font-bold"
+                >Blood Group</label
+              >
+              <select
+                id="occupation"
+                v-model="formData.bloodGroup"
+                class="focus:outline-none bg-none"
+                style="background: none"
+                :class="inputClass"
+              >
+                <option disabled :value="''">Select your blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+            <div class="grid gap-2" :style="style">
+              <label
+                for="occupation"
+                :class="brandColor"
+                class="block font-bold"
+                >Occupation</label
+              >
+              <select
+                id="occupation"
+                v-model="formData.occupation"
+                class="focus:outline-none bg-none"
+                style="background: none"
+                :class="inputClass"
+              >
+                <option disabled :value="''">Select Occupation</option>
+                <option value="Business">Business</option>
+                <option value="Service">Service</option>
+                <option value="Student">Student</option>
+                <option value="Other">Other</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+
+            <!-- Family Members -->
+            <div class="grid gap-2" :style="style">
+              <label
+                for="familyMembers"
+                :class="brandColor"
+                class="block font-bold"
+                >Family Members</label
+              >
+              <select
+                id="familyMembers"
+                v-model="formData.familyMembers"
+                class="focus:outline-none bg-none"
+                :class="inputClass"
+                style="background: none"
+              >
+                <option disabled :value="''">Select Family Members</option>
+                <option value="1-3">1-3</option>
+                <option value="4-6">4-6</option>
+                <option value="7-Above">7-Above</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+
+            <!-- Anniversary -->
+            <div class="grid gap-2" :style="style">
+              <label
+                for="anniversary"
+                :class="brandColor"
+                class="block font-bold"
+                >Anniversary</label
+              >
+              <input
+                type="date"
+                id="anniversary"
+                v-model="formData.anniversary"
+                :class="inputClass"
+              />
+              <span v-if="errors.anniversary" class="text-red-500">{{
+                errors.anniversary
+              }}</span>
+            </div>
+
+            <!-- Gender -->
+            <div class="flex gap-4 mt-2" style="">
+              <label :class="brandColor" class="block font-bold">Gender</label>
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="gender"
+                  v-model="formData.gender"
+                  value="Male"
+                  class="form-radio"
+                />
+                <span class="ml-2">Male</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="gender"
+                  v-model="formData.gender"
+                  value="Female"
+                  class="form-radio"
+                />
+                <span class="ml-2">Female</span>
+              </label>
+            </div>
+            <div class="flex gap-4 mt-2">
+              <label :class="brandColor" class="block font-bold"
+                >Complimentary Card</label
+              >
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="card"
+                  v-model="formData.hasComplimentaryCard"
+                  value="Yes"
+                  class="form-radio"
+                />
+                <span class="ml-2">Yes</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="card"
+                  v-model="formData.hasComplimentaryCard"
+                  value="No"
+                  class="form-radio"
+                />
+                <span class="ml-2">No</span>
+              </label>
+            </div>
+          </section>
+
+          <div class="flex gap-4 mt-6">
+            <input type="checkbox" v-model="isAgree" />
+            <a
+              :class="brandColor"
+              :href="TERMS_AND_CONDITION_LINK"
+              target="_blank"
+              class="block underline hover:text-blue-500"
+              >I agree with terms & condition</a
+            >
+          </div>
+          <button
+            type="submit"
+            :disabled="!isAgree || loading"
+            :class="
+              isAgree
+                ? 'bg-[#89BC40] hover:bg-[#89BC40]'
+                : 'bg-gray-500 hover:bg-gray-600'
+            "
+            class="text-white px-4 py-2 rounded mt-4 w-full"
+          >
+            {{ !loading ? "Submit" : "Processing" }}
+          </button>
+        </form>
+
+        <form v-else @submit.prevent="submitOtpForm" class="grid gap-2">
+          <label
+            @click="
+              () => {
+                success = false;
+                regFormSubmitted = false;
+                errors.otpError = '';
+                otp = '';
+                errors = {};
+              }
+            "
+            class="block cursor-pointer"
+            >< Back</label
+          >
+          <!-- Name -->
+          <div class="grid gap-2" :style="style">
+            <label for="name" class="block font-bold">OTP</label>
+            <input
+              type="text"
+              id="name"
+              v-model="otp"
+              :class="inputClass"
+              placeholder="e.g. 1234"
+              required
+            />
+            <span v-if="errors?.otp" class="text-red-500">{{
+              errors.otp
+            }}</span>
+          </div>
+
+          <button
+            type="submit"
+            :disabled="otp == '' || otp == null"
+            v-if="!loading"
+            class="bg-[#89BC40] hover:bg-[#89BC40] text-white px-4 py-2 rounded mt-4"
+          >
+            Submit
+          </button>
+          <span v-else>Processing</span>
+          <div class="mt-4 text-center text-red-500" v-if="errors.otpError">
+            {{ errors.otpError }}
+          </div>
+        </form>
+      </section>
+      <!-- <section class="order-1">
           image
         </section> -->
-      </div>
-    </section>
-  </Default>
+    </div>
+  </section>
 </template>
 
 <script setup>
@@ -348,7 +353,7 @@ import Default from "../layouts/Default.vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 definePageMeta({
-  layout: "Default",
+  layout: "empty",
 });
 const config = useRuntimeConfig();
 const url = config.public.BASE_URL + "user";
@@ -476,21 +481,21 @@ const submitOtpForm = () => {
     });
 };
 </script>
-<style >
+<style>
 .aaa {
   /* background-image: url("assets/bg-image-1.jpg"); */
 }
 ::-webkit-scrollbar {
-    width: 1px; /* Adjust width as needed */
+  width: 1px; /* Adjust width as needed */
 }
 
 /* Optionally, you can style the scrollbar track */
 ::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Change background color as needed */
+  background-color: #f1f1f1; /* Change background color as needed */
 }
 
 /* Optionally, you can style the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-    background-color: #888; /* Change thumb color as needed */
+  background-color: #888; /* Change thumb color as needed */
 }
 </style>
