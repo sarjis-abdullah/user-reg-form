@@ -1,7 +1,17 @@
 <template>
-  <Default :isLogin="isLogin">
-    <div class="p-4 max-w-lg mx-auto shadow-2xl">
+  <section class="h-screen flex justify-center items-center">
+    <div class="p-4 max-w-lg md:min-w-[28rem] mx-auto shadow-2xl">
       <section class="p-4">
+        <nav class="sticky top-0 bg-white z-[101] mb-4">
+          <center class="h-[100px]">
+            <img
+              :width="250"
+              :height="150"
+              src="/assets/khulshi.png"
+              class="bg-white mb-4"
+            />
+          </center>
+        </nav>
         <form
           v-if="!regFormSubmitted"
           @submit.prevent="submitForm"
@@ -31,6 +41,7 @@
               id="email"
               v-model="formData.password"
               :class="inputClass"
+              placeholder="******"
             />
             <span v-if="errors.email" class="text-red-500">{{
               errors.email
@@ -39,21 +50,24 @@
 
           <button
             type="submit"
-            v-if="!loading"
+            :disabled="loading"
             class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
           >
-            Login
+            {{ loading ? "Processing" : "Login" }}
           </button>
-          <span v-else>Processing</span>
         </form>
       </section>
       <div v-if="errors">
-        <div v-for="error in errors" :key="error" class="text-center text-red-500">
+        <div
+          v-for="error in errors"
+          :key="error"
+          class="text-center text-red-500"
+        >
           {{ error }}
         </div>
       </div>
     </div>
-  </Default>
+  </section>
 </template>
 
 <script setup>
@@ -61,9 +75,9 @@ import { ref } from "vue";
 import Default from "../layouts/Default.vue";
 import Login from "../components/Login.vue";
 // import AccountStorage from "../storage/Index";
-
 definePageMeta({
-  layout: "Default",
+  layout: "empty",
+  middleware: ["protected"],
 });
 const route = useRoute();
 const router = useRouter();
@@ -110,13 +124,14 @@ const submitForm = () => {
     })
     .then((data) => {
       loading.value = false;
+      console.log(data, "check data");
       if (data.user) {
         localStorage.setItem("LOGIN_ACCOUNT", JSON.stringify(data.user));
         localStorage.setItem("ACCESS_TOKEN", data.accessToken);
         isLogin.value = true;
-        router.push("/customer-list")
+        // router.push("/customer-list");
         // Reload the page
-        // window.location.reload();
+        window.location.href = "/customer-list";
       }
     })
     .catch((error) => {
@@ -127,45 +142,11 @@ const submitForm = () => {
       // Handle error from the server or network
     });
 };
-const submitOtpForm = () => {
-  // Options for the fetch request
-  const options = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      code: otp.value,
-    }),
-  };
-  loading.value = true;
-  errors.value.otpError = "";
-  // Send POST request using fetch
-  fetch(url + "/" + userId.value, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Success:", data);
-      setTimeout(() => {
-        loading.value = false;
-      }, 1000);
-      // regFormSubmitted.value = false
-      errors.value.otpError = "";
-      otp.value = null;
-      userId.value = null;
-      success.value = true;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      setTimeout(() => {
-        loading.value = false;
-      }, 1000);
-      errors.value.otpError = "Otp not matched";
-      // Handle error from the server or network
-    });
-};
+
+onMounted(() => {
+  if (window?.localStorage?.getItem('ACCESS_TOKEN')) {
+    window.location.href = '/customer-list'
+  }
+  
+});
 </script>

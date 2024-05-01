@@ -1,6 +1,5 @@
 <template>
   <Disclosure
-    v-if="loginAccount"
     as="nav"
     class="bg-white shadow sticky top-0 z-50"
     v-slot="{ open }"
@@ -22,7 +21,6 @@
               >Add customer
             </nuxt-link>
             <nuxt-link
-              v-if="loginAccount"
               to="/customer-list"
               :class="
                 route.name == 'customer-list'
@@ -92,8 +90,8 @@
     :options="options"
     @load="onLoad"
   ></NuxtParticles>
-  <section class="relative z-[100] "> 
-    <slot></slot>
+  <section class="relative  "> 
+    <NuxtPage/>
   </section>
 </template>
 

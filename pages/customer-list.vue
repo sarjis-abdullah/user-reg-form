@@ -1,5 +1,4 @@
 <template>
-  <Default>
     <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto shadow-2xl">
       <section class="grid grid-cols-3">
               <div class="grid gap-2">
@@ -8,7 +7,6 @@
                   type="text"
                   id="search"
                   v-model="searchQuery"
-                  @input="debouncedSearch"
                   placeholder="Search by phone number"
                   class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none focus:ring-blue-500 sm:text-sm focus:border-blue-500"
                 />
@@ -33,7 +31,13 @@
                     scope="col"
                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                   >
-                    Name
+                    First Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                  >
+                    Last Name
                   </th>
                   <th
                     scope="col"
@@ -58,6 +62,12 @@
                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
                     Email
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Blood Group
                   </th>
                   <th
                     scope="col"
@@ -97,6 +107,11 @@
                   >
                     {{ person.name }}
                   </td>
+                  <td
+                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                  >
+                    {{ person.lastName }}
+                  </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ person.phone }}
                   </td>
@@ -108,6 +123,9 @@
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ person.email }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {{ person.bloodGroup }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ person.occupation }}
@@ -140,16 +158,15 @@
         No data
       </div>
     </div>
-  </Default>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import Default from "../layouts/Default.vue";
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
 
 definePageMeta({
-  layout: "Default",
+  // layout: "Default",
+  // middleware:['protected'],
 });
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -185,7 +202,7 @@ const formattedData = computed(() => {
     hasComplimentaryCard: !!formData.value.hasComplimentaryCard == "Yes",
   };
 });
-
+const router = useRouter();
 const loadData = (query='') => {
   loading.value = true;
   errors.otpError = "";
@@ -201,6 +218,12 @@ const loadData = (query='') => {
     headers: { Authorization: "Bearer " + token },
   })
     .then((response) => {
+      console.log(response, response.status);      
+      if (response.status == 401) {
+        window.localStorage.removeItem("LOGIN_ACCOUNT");
+        window.localStorage.removeItem("ACCESS_TOKEN");
+        window.location.href = "/login";
+      }
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -220,8 +243,13 @@ const loadData = (query='') => {
 const search = async () => {
   loadData(searchQuery.value)
 };
-const debouncedSearch = debounce(search, 500);
+// const debouncedSearch = debounce(search, 500);
 onMounted(() => {
-  loadData();
+  if (window?.localStorage?.getItem('ACCESS_TOKEN')) {
+    loadData();
+  }else {
+    window.location.href = '/login'
+  }
+  
 });
 </script>

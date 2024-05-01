@@ -1,10 +1,10 @@
 <template>
   <section
-    class="grid items-center scrollable-container"
+    class="grid items-center scrollable-container md:h-screen"
     style="background-image: linear-gradient(45deg, #daeaa5, #89bbef)"
   >
     <div
-      class="p-4 md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
+      class="px-4 md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
       style=""
     >
       <section class="order-2 px-4 pb-">
@@ -20,7 +20,7 @@
         </nav>
         <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
           <section
-            class="grid gap-2 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto"
+            class="grid gap-2 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto pb-32 md:pb-0"
           >
             <!-- Name -->
             <div class="grid gap-2" :style="style">
