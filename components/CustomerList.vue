@@ -316,7 +316,7 @@ const downloadCsv = () => {
       } else if (obj[key] == 1) {
         newObj[key] = "Yes";
       } else {
-        newObj[key] = obj[key];
+        newObj[key] = obj[key].toString();
       }
     }
     return {

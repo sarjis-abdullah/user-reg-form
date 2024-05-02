@@ -27,10 +27,10 @@
         </nav>
         <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
           <section
-            class="grid gap-2 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto pb-32 md:pb-0"
+            class="grid gap-1 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto pb-32 md:pb-0"
           >
             <!-- Name -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label for="name" :class="brandColor" class="block font-bold"
                 >First Name <span class="text-red-500">*</span></label
               >
@@ -46,7 +46,7 @@
                 errors.name
               }}</span>
             </div>
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label for="name" :class="brandColor" class="block font-bold"
                 >Last Name <span class="text-red-500">*</span></label
               >
@@ -63,7 +63,7 @@
               }}</span>
             </div>
             <!-- Phone -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label for="phone" :class="brandColor" class="block font-bold"
                 >Phone <span class="text-red-500">*</span></label
               >
@@ -81,7 +81,7 @@
             </div>
 
             <!-- Birth Date -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label
                 for="birthDate"
                 :class="brandColor"
@@ -101,7 +101,7 @@
               }}</span>
             </div>
             <!-- Email -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label for="email" :class="brandColor" class="block font-bold"
                 >Email <span class="text-red-500">*</span></label
               >
@@ -119,7 +119,7 @@
             </div>
 
             <!-- Address -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label for="address" :class="brandColor" class="block font-bold"
                 >Address <span class="text-red-500">*</span></label
               >
@@ -137,7 +137,7 @@
             </div>
 
             <!-- Occupation -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label
                 for="occupation"
                 :class="brandColor"
@@ -163,7 +163,7 @@
                 <!-- Add more options as needed -->
               </select>
             </div>
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label
                 for="occupation"
                 :class="brandColor"
@@ -187,7 +187,7 @@
             </div>
 
             <!-- Family Members -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label
                 for="familyMembers"
                 :class="brandColor"
@@ -210,7 +210,7 @@
             </div>
 
             <!-- Anniversary -->
-            <div class="grid gap-2" :style="style">
+            <div class="grid gap-1" :style="style">
               <label
                 for="anniversary"
                 :class="brandColor"
@@ -278,25 +278,62 @@
               </label>
             </div>
           </section>
+          <div class="grid gap-1 mt-4" :style="style">
+            <section class="grid grid-cols-2">
+              <div class="flex gap-2 items-center">
+                <label
+                  for="captcha"
+                  :class="brandColor"
+                  class="block font-bold"
+                >
+                  Captcha <span class="text-red-500">*</span>
+                </label>
+                <div class="line line-through" @click="refreshCaptcha">
+                  {{ captchaText }}
+                </div>
+              </div>
+
+              <div class="flex gap-2 items-center">
+                <input
+                  id="captcha"
+                  type="text"
+                  v-model="userCaptcha"
+                  placeholder="e.g. Type captcha"
+                  :class="inputClass"
+                  required
+                />
+                <div id="refresh" class="text-right" @click="refreshCaptcha">
+                  <ArrowPathIcon class="h-5 w-5" />
+                </div>
+              </div>
+            </section>
+            <section class="grid grid-cols-2 justify-between">
+              <span></span>
+              <span v-if="showCaptchaError" class="text-red-500">
+                Captcha doesn't matched!
+              </span>
+            </section>
+          </div>
 
           <div
             class="fixed md:static bottom-[0] bg-white z-[1000] px-4 pb-4 md:px-0"
           >
-            <div class="flex gap-4 mt-6">
+            <div class="flex gap-4 mt-2">
               <input type="checkbox" v-model="isAgree" />
               <a
                 :class="brandColor"
                 :href="TERMS_AND_CONDITION_LINK"
                 target="_blank"
-                class="block underline hover:text-blue-500"
+                class="block hover:text-blue-500 italic no-underline"
                 >I agree with terms & condition</a
               >
             </div>
+
             <button
               type="submit"
-              :disabled="!isAgree || loading"
+              :disabled="disabled"
               :class="
-                isAgree
+                !disabled
                   ? 'bg-[#89BC40] hover:bg-[#89BC40]'
                   : 'bg-gray-500 hover:bg-gray-600'
               "
@@ -307,10 +344,9 @@
           </div>
         </form>
 
-        <form v-else @submit.prevent="submitOtpForm" class="grid gap-2">
-          
+        <form v-else @submit.prevent="submitOtpForm" class="grid gap-1">
           <!-- Name -->
-          <div class="grid gap-2" :style="style">
+          <div class="grid gap-1" :style="style">
             <label for="name" class="block font-bold">OTP</label>
             <input
               type="text"
@@ -325,7 +361,7 @@
             }}</span>
           </div>
 
-          <div class="flex justify-end gap-2">
+          <div class="flex justify-end gap-1">
             <button
               type="button"
               @click="
@@ -363,10 +399,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import Default from "../layouts/Default.vue";
+import { ref, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import { ArrowPathIcon } from "@heroicons/vue/20/solid";
 definePageMeta({
   layout: "empty",
 });
@@ -408,6 +444,20 @@ const formattedData = computed(() => {
     hasComplimentaryCard: !!formData.value.hasComplimentaryCard == "Yes",
   };
 });
+const captchaText = ref("");
+const userCaptcha = ref("");
+const showCaptchaError = computed(() => {
+  if (!userCaptcha.value || !captchaText.value) {
+    return false;
+  }
+  if (userCaptcha.value.toLowerCase() === captchaText.value.toLowerCase()) {
+    return false;
+  }
+  return true;
+});
+const disabled = computed(()=> {
+  return (!isAgree.value || loading.value) || (!userCaptcha.value || showCaptchaError.value)
+})
 
 const submitForm = () => {
   const options = {
@@ -495,6 +545,24 @@ const submitOtpForm = () => {
       // Handle error from the server or network
     });
 };
+
+const generateRandomString = (length) => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
+
+// Function to refresh CAPTCHA
+const refreshCaptcha = () => {
+  captchaText.value = generateRandomString(4); // Generate a 6-character random string
+};
+onMounted(() => {
+  refreshCaptcha();
+});
 </script>
 <style scoped>
 .aaa {
@@ -513,5 +581,16 @@ const submitOtpForm = () => {
 /* Optionally, you can style the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
   background-color: white; /* Change thumb color as needed */
+}
+.py-2 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.block {
+  display: block;
+  font-size: 12px;
+}
+span {
+  font-size: 12px;
 }
 </style>
