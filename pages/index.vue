@@ -7,11 +7,11 @@
     >
       <div
         class="md:min-w-[30rem] grid grid-cols-1 md:my-0 md:mx-auto shadow-2xl bg-white m-4"
-        :class="!regFormSubmitted ? 'px-4' : 'pb-4'"
+        :class="!regFormSubmitted ? '' : 'pb-4'"
       >
         <section class="order-2 px-4 pb-">
           <nav class="sticky top-0 bg-white z-[101] md:pb-4">
-            <center class="h-[100px] py-4">
+            <center class="py-4">
               <img
                 :width="250"
                 :height="150"
@@ -81,7 +81,6 @@
                 }}</span>
               </div>
 
-              <!-- Birth Date -->
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="birthDate"
@@ -101,7 +100,6 @@
                   errors.birthDate
                 }}</span>
               </div>
-              <!-- Email -->
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="email" :class="brandColor" class="block font-bold"
                   >Email <span class="text-red-500">*</span></label
@@ -119,7 +117,6 @@
                 }}</span>
               </div>
 
-              <!-- Address -->
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="address" :class="brandColor" class="block font-bold"
                   >Address <span class="text-red-500">*</span></label
@@ -137,7 +134,6 @@
                 }}</span>
               </div>
 
-              <!-- Occupation -->
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="occupation"
@@ -152,7 +148,7 @@
                   style="background: none"
                   :class="inputClass"
                 >
-                  <option disabled :value="''">Select your blood group</option>
+                  <option disabled :value="''">Select blood group</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -161,7 +157,6 @@
                   <option value="AB-">AB-</option>
                   <option value="O+">O+</option>
                   <option value="O-">O-</option>
-                  <!-- Add more options as needed -->
                 </select>
               </div>
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -183,7 +178,6 @@
                   <option value="Service">Service</option>
                   <option value="Student">Student</option>
                   <option value="Other">Other</option>
-                  <!-- Add more options as needed -->
                 </select>
               </div>
 
@@ -294,6 +288,15 @@
                   <div class="line line-through" @click="refreshCaptcha">
                     {{ captchaText }}
                   </div>
+                  <div class="block md:hidden">
+                    <div
+                      id="refresh"
+                      class="text-right"
+                      @click="refreshCaptcha"
+                    >
+                      <ArrowPathIcon class="h-5 w-5" />
+                    </div>
+                  </div>
                 </div>
 
                 <div class="flex gap-2 items-center">
@@ -305,13 +308,10 @@
                     :class="inputClass"
                     required
                   />
-                  <div id="refresh" class="text-right" @click="refreshCaptcha">
-                    <ArrowPathIcon class="h-5 w-5" />
-                  </div>
                 </div>
               </section>
               <section class="grid grid-cols-2 justify-between">
-                <span></span>
+                <span class="hidden md:inline"></span>
                 <span v-if="showCaptchaError" class="text-red-500">
                   Captcha doesn't matched!
                 </span>
@@ -401,7 +401,7 @@
           </form>
         </section>
       </div>
-      <section class="w-full px-[3.25rem] pb-4" style="">
+      <section class="w-full px-[3.25rem] pb-4 md:pb-0 md:mt-4" style="">
         <ul role="list" class="flex gap-2 justify-center">
           <li class="list-item-3">
             <a
@@ -641,9 +641,9 @@ onMounted(() => {
 /* Styles for large screens */
 @media screen and (min-width: 769px) {
   .block {
-  display: block;
-  font-size: 12px;
-}
+    display: block;
+    font-size: 12px;
+  }
 }
 span {
   font-size: 12px;
