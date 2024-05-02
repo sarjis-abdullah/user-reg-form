@@ -6,7 +6,7 @@
       s
     >
       <div
-        class="md:min-w-[30rem] grid grid-cols-1 mx-auto shadow-2xl bg-white"
+        class="md:min-w-[30rem] grid grid-cols-1 md:my-0 md:mx-auto shadow-2xl bg-white m-4"
         :class="!regFormSubmitted ? 'px-4' : 'pb-4'"
       >
         <section class="order-2 px-4 pb-">
@@ -28,10 +28,10 @@
           </nav>
           <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
             <section
-              class="grid gap-1 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto pb-32 md:pb-0"
+              class="grid gap-2 md:gap-1 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto md:pb-0"
             >
               <!-- Name -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="name" :class="brandColor" class="block font-bold"
                   >First Name <span class="text-red-500">*</span></label
                 >
@@ -47,7 +47,7 @@
                   errors.name
                 }}</span>
               </div>
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="name" :class="brandColor" class="block font-bold"
                   >Last Name <span class="text-red-500">*</span></label
                 >
@@ -64,7 +64,7 @@
                 }}</span>
               </div>
               <!-- Phone -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="phone" :class="brandColor" class="block font-bold"
                   >Phone <span class="text-red-500">*</span></label
                 >
@@ -82,7 +82,7 @@
               </div>
 
               <!-- Birth Date -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="birthDate"
                   :class="brandColor"
@@ -102,7 +102,7 @@
                 }}</span>
               </div>
               <!-- Email -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="email" :class="brandColor" class="block font-bold"
                   >Email <span class="text-red-500">*</span></label
                 >
@@ -120,7 +120,7 @@
               </div>
 
               <!-- Address -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="address" :class="brandColor" class="block font-bold"
                   >Address <span class="text-red-500">*</span></label
                 >
@@ -138,7 +138,7 @@
               </div>
 
               <!-- Occupation -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="occupation"
                   :class="brandColor"
@@ -164,7 +164,7 @@
                   <!-- Add more options as needed -->
                 </select>
               </div>
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="occupation"
                   :class="brandColor"
@@ -188,7 +188,7 @@
               </div>
 
               <!-- Family Members -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="familyMembers"
                   :class="brandColor"
@@ -211,7 +211,7 @@
               </div>
 
               <!-- Anniversary -->
-              <div class="grid gap-1" :style="style">
+              <div class="grid gap-2 md:gap-1" :style="style">
                 <label
                   for="anniversary"
                   :class="brandColor"
@@ -281,8 +281,8 @@
                 </label>
               </div>
             </section>
-            <div class="grid gap-1 mt-4" :style="style">
-              <section class="grid grid-cols-2">
+            <div class="grid gap-2 md:gap-1 mt-4" :style="style">
+              <section class="grid gap-2 md:gap-1 md:grid-cols-2">
                 <div class="flex gap-2 items-center">
                   <label
                     for="captcha"
@@ -318,9 +318,7 @@
               </section>
             </div>
 
-            <div
-              class="fixed md:static bottom-[0] bg-white z-[1000] px-4 pb-4 md:px-0"
-            >
+            <div class="bg-white z-[1000] pb-4 md:px-0">
               <div class="flex gap-4 mt-2">
                 <input type="checkbox" v-model="isAgree" />
                 <a
@@ -344,12 +342,20 @@
               >
                 {{ !loading ? "Submit" : "Processing" }}
               </button>
+              <!-- <button
+                class="p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
+          Submit
+        </button> -->
             </div>
           </form>
 
-          <form v-else @submit.prevent="submitOtpForm" class="grid gap-1">
+          <form
+            v-else
+            @submit.prevent="submitOtpForm"
+            class="grid gap-2 md:gap-1"
+          >
             <!-- Name -->
-            <div class="grid gap-1" :style="style">
+            <div class="grid gap-2 md:gap-1" :style="style">
               <label for="name" class="block font-bold">OTP</label>
               <input
                 type="text"
@@ -364,7 +370,7 @@
               }}</span>
             </div>
 
-            <div class="flex justify-end gap-1">
+            <div class="flex justify-end gap-2 md:gap-1">
               <button
                 type="button"
                 @click="
@@ -395,8 +401,8 @@
           </form>
         </section>
       </div>
-      <section class="w-full px-[3.25rem] pt-4" style="">
-        <ul role="list" class="flex gap-2">
+      <section class="w-full px-[3.25rem] pb-4" style="">
+        <ul role="list" class="flex gap-2 justify-center">
           <li class="list-item-3">
             <a
               target="blank"
@@ -624,9 +630,20 @@ onMounted(() => {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.block {
+
+@media screen and (max-width: 768px) {
+  .block {
+    display: block;
+    font-size: 16px;
+  }
+}
+
+/* Styles for large screens */
+@media screen and (min-width: 769px) {
+  .block {
   display: block;
   font-size: 12px;
+}
 }
 span {
   font-size: 12px;
