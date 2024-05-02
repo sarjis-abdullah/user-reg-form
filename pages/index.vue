@@ -10,17 +10,17 @@
         :class="!regFormSubmitted ? '' : 'pb-4'"
       >
         <section class="order-2 px-4 pb-">
-          <nav class="sticky top-0 bg-white z-[101] md:pb-4">
-            <center class="py-4">
+          <nav class="sticky top-0 bg-white z-[101]">
+            <center class="md:py-0 py-4">
               <img
-                :width="250"
-                :height="150"
+                width="250"
+                height="100"
                 src="/assets/khulshi.png"
                 class="bg-white hidden md:block"
               />
               <img
-                :width="150"
-                :height="100"
+                width="150"
+                height="100"
                 src="/assets/khulshi.png"
                 class="bg-white sm:block md:hidden"
               />
@@ -28,7 +28,7 @@
           </nav>
           <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
             <section
-              class="grid gap-2 md:gap-1 grid-cols-1 md:grid-cols-2 max-h-[100vh] overflow-y-auto md:pb-0"
+              class="grid gap-2 md:gap-1 grid-cols-1 md:grid-cols-2  md:pb-0"
             >
               <!-- Name -->
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -401,7 +401,7 @@
           </form>
         </section>
       </div>
-      <section class="w-full px-[3.25rem] pb-4 md:pb-0 md:mt-4" style="">
+      <section class="w-full px-[3.25rem] pb-4 md:pb-0 md:mt-2" style="">
         <ul role="list" class="flex gap-2 justify-center">
           <li class="list-item-3">
             <a
