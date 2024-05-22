@@ -5,16 +5,17 @@
       :class="!regFormSubmitted ? 'md:h-screen' : 'h-screen'"
       s
     >
+    
       <div
-        class="md:min-w-[30rem] grid grid-cols-1 md:my-0 md:mx-auto shadow-2xl bg-white m-4"
+        class="md:min-w-[30rem] grid grid-cols-0 md:my-0 md:mx-auto shadow-2xl bg-white m-4"
         :class="!regFormSubmitted ? '' : 'pb-4'"
       >
         <section class="order-2 px-4 pb-">
           <nav class="sticky top-0 bg-white z-[101]">
             <center class="md:py-0 py-4">
               <img
-                width="250"
-                height="100"
+                width="220"
+                height="50"
                 src="/assets/khulshi.png"
                 class="bg-white hidden md:block"
               />
@@ -288,18 +289,7 @@
                   <div class="line line-through" @click="refreshCaptcha">
                     {{ captchaText }}
                   </div>
-                  <div class="block md:hidden">
-                    <div
-                      id="refresh"
-                      class="text-right"
-                      @click="refreshCaptcha"
-                    >
-                      <ArrowPathIcon class="h-5 w-5" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex gap-2 items-center">
+                  <div class="flex gap-2 items-center">
                   <input
                     id="captcha"
                     type="text"
@@ -309,6 +299,18 @@
                     required
                   />
                 </div>
+                  <div class="block md:hidden">
+                    <div
+                      id="refresh"
+                      class="text-right"
+                      @click="refreshCaptcha"
+                    >
+                      <ArrowPathIcon class="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor"/>
+                    </div>
+                  </div>
+                </div>
+
+               
               </section>
               <section class="grid grid-cols-2 justify-between">
                 <span class="hidden md:inline"></span>
@@ -317,18 +319,68 @@
                 </span>
               </section>
             </div>
-
             <div class="bg-white z-[1000] pb-4 md:px-0">
-              <div class="flex gap-4 mt-2">
-                <input type="checkbox" v-model="isAgree" />
-                <a
-                  :class="brandColor"
-                  :href="TERMS_AND_CONDITION_LINK"
-                  target="_blank"
-                  class="block hover:text-blue-500 italic no-underline"
-                  >I agree with terms & condition</a
-                >
-              </div>
+  <div class="flex flex-col md:flex-row md:gap-4 md:items-center mt-2">
+    <!-- Wrapping the checkbox and text inside a label -->
+    <label for="termsCheckbox" class="flex items-center cursor-pointer">
+      <input id="termsCheckbox" type="checkbox" v-model="isAgree" @change="toggleTermsPopup" class="mr-2">
+      <span :class="[brandColor, 'hover:text-blue-500', 'italic', 'no-underline']">
+        I agree with terms & condition
+      </span>
+    </label>
+  </div> 
+  <!-- Boxed container for terms and condition -->
+  <!-- Boxed container for terms and condition -->
+  <div v-if="showTermsPopup" class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-[2000]">
+  <div class="bg-white p-4 rounded-md w-11/12 h-4/5 md:max-w-lg relative overflow-y-auto shadow-lg">
+    <!-- Close button positioned at the top of the content -->
+    <button @click="showTermsPopup = false" class="absolute top-4 right-4 px-2 py-1 bg-blue-500 text-white rounded-md">Close</button>
+    <div class="content relative mt-8">
+      <h2 class="text-lg md:text-xl font-bold mb-4 text-center text-blue-500">Terms & Conditions</h2>
+      <!-- Add content here -->
+      <ul class="list-disc pl-4 md:pl-6 text-xs md:text-sm text-left">
+        <li>Special K Card Membership is non-transferable.</li>
+        <li>Membership is free of cost for our patrons. However, Khulshi Mart reserves the right to accept/decline/defer any membership application.</li>
+        <li>Special K Card can not be used for credit purchases. This is only a membership card.</li>
+        <li>Points earned cannot be redeemed as cash refunds.</li>
+        <li>Members will accumulate points in each purchase.</li>
+        <li>Points earned can only be redeemed against general purchases or specific product rebates.</li>
+        <li>Points can be adjusted within 7 days of purchase but receipt must be shown.</li>
+        <li>Membership will be canceled if not purchased for six months and also downgrade his/her Membership Category.</li>
+        <li>All notices relative to the membership shall be sent to the Member's email address or Phone Number provided during the registration process.</li>
+        <li>The Member may extend his/her concerns to Khulshi Mart by emailing info@khulshimart.com.</li>
+        <li>Khulshi Mart reserves the right to change the Terms & Conditions of membership without any prior notice.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
               <button
                 type="submit"
@@ -464,6 +516,16 @@ const defaultData = {
   bloodGroup: "",
   hasComplimentaryCard: false,
 };
+
+const showTermsPopup = ref(false);
+
+// Function to toggle the visibility of the terms pop-up
+const toggleTermsPopup = () => {
+  if (isAgree.value) {
+    showTermsPopup.value = !showTermsPopup.value;
+  }
+};
+
 const TERMS_AND_CONDITION_LINK =
   "https://reg.kbakery.com.bd/terms&condition?fbclid=IwAR3ZHAuljA8NIQrStmVdluorz8VY4EWvitgrQvpPS5kMCxeboy4-Zgzdvw4_aem_AX98AXyHp5MERWziwe-z6zha2l6MmwgUPO7OD5sOi7nSXQpUMafwcgnJUTJ8BMLSL-5bWtuyrL95BUSdxRFX2OTY";
 const formData = ref({ ...defaultData });
@@ -633,8 +695,8 @@ onMounted(() => {
 
 @media screen and (max-width: 768px) {
   .block {
-    display: block;
-    font-size: 16px;
+    /* display: block;  */
+    font-size: 11px;
   }
 }
 
@@ -642,10 +704,13 @@ onMounted(() => {
 @media screen and (min-width: 769px) {
   .block {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 span {
   font-size: 12px;
 }
+
+
+
 </style>
