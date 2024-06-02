@@ -284,7 +284,7 @@
                     :class="brandColor"
                     class="block font-bold"
                   >
-                    Captcha <span class="text-red-500">*</span>
+                     <span class="text-red-500">*</span>
                   </label>
                   <div class="line line-through" @click="refreshCaptcha">
                     {{ captchaText }}
@@ -431,8 +431,10 @@
                     isAgree = false;
                     regFormSubmitted = false;
                     errors.otpError = '';
+                    userCaptcha = '';
                     otp = '';
                     errors = {};
+                    refreshCaptcha();
                   }
                 "
                 class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded mt-4"
@@ -607,6 +609,10 @@ const notify = () => {
     autoClose: 2000,
   }); // ToastOptions
 };
+// Function to refresh CAPTCHA
+const refreshCaptcha = () => {
+  captchaText.value = generateRandomString(4); // Generate a 6-character random string
+};
 const submitOtpForm = () => {
   // Options for the fetch request
   const options = {
@@ -640,6 +646,8 @@ const submitOtpForm = () => {
       regFormSubmitted.value = false;
       errors.value = {};
       isAgree.value = false;
+      userCaptcha.value = ""
+      refreshCaptcha()
       notify();
     })
     .catch((error) => {
@@ -662,10 +670,6 @@ const generateRandomString = (length) => {
   return result;
 };
 
-// Function to refresh CAPTCHA
-const refreshCaptcha = () => {
-  captchaText.value = generateRandomString(4); // Generate a 6-character random string
-};
 onMounted(() => {
   refreshCaptcha();
 });
