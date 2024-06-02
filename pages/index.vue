@@ -5,7 +5,6 @@
       :class="!regFormSubmitted ? 'md:h-screen' : 'h-screen'"
       s
     >
-    
       <div
         class="md:min-w-[30rem] grid grid-cols-0 md:my-0 md:mx-auto shadow-2xl bg-white m-4"
         :class="!regFormSubmitted ? '' : 'pb-4'"
@@ -28,9 +27,7 @@
             </center>
           </nav>
           <form v-if="!regFormSubmitted" @submit.prevent="submitForm" class="">
-            <section
-              class="grid gap-2 md:gap-1 grid-cols-1 md:grid-cols-2  md:pb-0"
-            >
+            <section class="grid gap-2 grid-cols-1 md:grid-cols-2 md:pb-0">
               <!-- Name -->
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="name" :class="brandColor" class="block font-bold"
@@ -44,9 +41,9 @@
                   placeholder="e.g. John"
                   required
                 />
-                <span v-if="errors.name" class="text-red-500">{{
+                <!-- <span v-if="errors.name" class="text-red-500">{{
                   errors.name
-                }}</span>
+                }}</span> -->
               </div>
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="name" :class="brandColor" class="block font-bold"
@@ -60,9 +57,9 @@
                   placeholder="e.g. Doe"
                   required
                 />
-                <span v-if="errors.name" class="text-red-500">{{
+                <!-- <span v-if="errors.name" class="text-red-500">{{
                   errors.lastName
-                }}</span>
+                }}</span> -->
               </div>
               <!-- Phone -->
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -77,9 +74,9 @@
                   placeholder="e.g. +880123456789"
                   required
                 />
-                <span v-if="errors.phone" class="text-red-500">{{
+                <!-- <span v-if="errors.phone" class="text-red-500">{{
                   errors.phone
-                }}</span>
+                }}</span> -->
               </div>
 
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -97,9 +94,9 @@
                   :class="inputClass"
                   required
                 />
-                <span v-if="errors.birthDate" class="text-red-500">{{
+                <!-- <span v-if="errors.birthDate" class="text-red-500">{{
                   errors.birthDate
-                }}</span>
+                }}</span> -->
               </div>
               <div class="grid gap-2 md:gap-1" :style="style">
                 <label for="email" :class="brandColor" class="block font-bold"
@@ -113,9 +110,9 @@
                   :class="inputClass"
                   required
                 />
-                <span v-if="errors.email" class="text-red-500">{{
+                <!-- <span v-if="errors.email" class="text-red-500">{{
                   errors.email
-                }}</span>
+                }}</span> -->
               </div>
 
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -130,9 +127,9 @@
                   placeholder="e.g. 1 no road, Khulshi, Chittagong"
                   required
                 />
-                <span v-if="errors.address" class="text-red-500">{{
+                <!-- <span v-if="errors.address" class="text-red-500">{{
                   errors.address
-                }}</span>
+                }}</span> -->
               </div>
 
               <div class="grid gap-2 md:gap-1" :style="style">
@@ -219,9 +216,9 @@
                   v-model="formData.anniversary"
                   :class="inputClass"
                 />
-                <span v-if="errors.anniversary" class="text-red-500">{{
+                <!-- <span v-if="errors.anniversary" class="text-red-500">{{
                   errors.anniversary
-                }}</span>
+                }}</span> -->
               </div>
 
               <!-- Gender -->
@@ -275,42 +272,75 @@
                   <span class="ml-2">No</span>
                 </label>
               </div>
+              <div class="grid gap-2 md:gap-1" :style="style">
+                <label
+                  :class="brandColor"
+                  class="block font-bold"
+                  >Member type</label
+                >
+                <select
+                  v-model="memberType"
+                  class="focus:outline-none bg-none"
+                  :class="inputClass"
+                  style="background: none"
+                >
+                  <option value="New">New</option>
+                  <option value="Old">Old</option>
+                </select>
+              </div>
+              <div
+                v-if="memberType == 'Old'"
+                class="grid gap-2 md:gap-1"
+                :style="style"
+              >
+                <label for="Number" :class="brandColor" class="block font-bold"
+                  >Existing membership Id <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  v-model="formData.member_id"
+                  :class="inputClass"
+                  placeholder="e.g. 12345"
+                />
+              </div>
             </section>
             <div class="grid gap-2 md:gap-1 mt-4" :style="style">
-              <section class="grid gap-2 md:gap-1 md:grid-cols-2">
+              <section class="grid gap-2 md:gap-2 md:grid-cols-2">
                 <div class="flex gap-2 items-center">
                   <label
                     for="captcha"
                     :class="brandColor"
                     class="block font-bold"
                   >
-                     <span class="text-red-500">*</span>
+                    Captcha<span class="text-red-500">*</span>
                   </label>
                   <div class="line line-through" @click="refreshCaptcha">
                     {{ captchaText }}
                   </div>
                   <div class="flex gap-2 items-center">
-                  <input
-                    id="captcha"
-                    type="text"
-                    v-model="userCaptcha"
-                    placeholder="e.g. Type captcha"
-                    :class="inputClass"
-                    required
-                  />
-                </div>
+                    <input
+                      id="captcha"
+                      type="text"
+                      v-model="userCaptcha"
+                      placeholder="e.g. Type captcha"
+                      :class="inputClass"
+                      required
+                    />
+                  </div>
                   <div class="block md:hidden">
                     <div
                       id="refresh"
                       class="text-right"
                       @click="refreshCaptcha"
                     >
-                      <ArrowPathIcon class="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor"/>
+                      <ArrowPathIcon
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      />
                     </div>
                   </div>
                 </div>
-
-               
               </section>
               <section class="grid grid-cols-2 justify-between">
                 <span class="hidden md:inline"></span>
@@ -319,68 +349,113 @@
                 </span>
               </section>
             </div>
+            <div v-if="Object.keys(errors).length">
+              <ul>
+                <li v-for="(messages, field) in errors" :key="field">
+                  <strong class="text-sm capitalize">{{ field }}:</strong>
+                  <ul>
+                    <li v-for="(message, index) in messages" :key="index" class="text-sm text-red-500">
+                      {{ message }}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
             <div class="bg-white z-[1000] pb-4 md:px-0">
-  <div class="flex flex-col md:flex-row md:gap-4 md:items-center mt-2">
-    <!-- Wrapping the checkbox and text inside a label -->
-    <label for="termsCheckbox" class="flex items-center cursor-pointer">
-      <input id="termsCheckbox" type="checkbox" v-model="isAgree" @change="toggleTermsPopup" class="mr-2">
-      <span :class="[brandColor, 'hover:text-blue-500', 'italic', 'no-underline']">
-        I agree with terms & condition
-      </span>
-    </label>
-  </div> 
-  <!-- Boxed container for terms and condition -->
-  <!-- Boxed container for terms and condition -->
-  <div v-if="showTermsPopup" class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-[2000]">
-  <div class="bg-white p-4 rounded-md w-11/12 h-4/5 md:max-w-lg relative overflow-y-auto shadow-lg">
-    <!-- Close button positioned at the top of the content -->
-    <button @click="showTermsPopup = false" class="absolute top-4 right-4 px-2 py-1 bg-blue-500 text-white rounded-md">Close</button>
-    <div class="content relative mt-8">
-      <h2 class="text-lg md:text-xl font-bold mb-4 text-center text-blue-500">Terms & Conditions</h2>
-      <!-- Add content here -->
-      <ul class="list-disc pl-4 md:pl-6 text-xs md:text-sm text-left">
-        <li>Special K Card Membership is non-transferable.</li>
-        <li>Membership is free of cost for our patrons. However, Khulshi Mart reserves the right to accept/decline/defer any membership application.</li>
-        <li>Special K Card can not be used for credit purchases. This is only a membership card.</li>
-        <li>Points earned cannot be redeemed as cash refunds.</li>
-        <li>Members will accumulate points in each purchase.</li>
-        <li>Points earned can only be redeemed against general purchases or specific product rebates.</li>
-        <li>Points can be adjusted within 7 days of purchase but receipt must be shown.</li>
-        <li>Membership will be canceled if not purchased for six months and also downgrade his/her Membership Category.</li>
-        <li>All notices relative to the membership shall be sent to the Member's email address or Phone Number provided during the registration process.</li>
-        <li>The Member may extend his/her concerns to Khulshi Mart by emailing info@khulshimart.com.</li>
-        <li>Khulshi Mart reserves the right to change the Terms & Conditions of membership without any prior notice.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+              <div
+                class="flex flex-col md:flex-row md:gap-4 md:items-center mt-2"
+              >
+                <!-- Wrapping the checkbox and text inside a label -->
+                <label
+                  for="termsCheckbox"
+                  class="flex items-center cursor-pointer"
+                >
+                  <input
+                    id="termsCheckbox"
+                    type="checkbox"
+                    v-model="isAgree"
+                    @change="toggleTermsPopup"
+                    class="mr-2"
+                  />
+                  <span
+                    :class="[
+                      brandColor,
+                      'hover:text-blue-500',
+                      'italic',
+                      'no-underline',
+                    ]"
+                  >
+                    I agree with terms & condition
+                  </span>
+                </label>
+              </div>
+              <!-- Boxed container for terms and condition -->
+              <!-- Boxed container for terms and condition -->
+              <div
+                v-if="showTermsPopup"
+                class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-[2000]"
+              >
+                <div
+                  class="bg-white p-4 rounded-md w-11/12 h-4/5 md:max-w-lg relative overflow-y-auto shadow-lg"
+                >
+                  <!-- Close button positioned at the top of the content -->
+                  <button
+                    @click="showTermsPopup = false"
+                    class="absolute top-4 right-4 px-2 py-1 bg-blue-500 text-white rounded-md"
+                  >
+                    Close
+                  </button>
+                  <div class="content relative mt-8">
+                    <h2
+                      class="text-lg md:text-xl font-bold mb-4 text-center text-blue-500"
+                    >
+                      Terms & Conditions
+                    </h2>
+                    <!-- Add content here -->
+                    <ul
+                      class="list-disc pl-4 md:pl-6 text-xs md:text-sm text-left"
+                    >
+                      <li>Special K Card Membership is non-transferable.</li>
+                      <li>
+                        Membership is free of cost for our patrons. However,
+                        Khulshi Mart reserves the right to accept/decline/defer
+                        any membership application.
+                      </li>
+                      <li>
+                        Special K Card can not be used for credit purchases.
+                        This is only a membership card.
+                      </li>
+                      <li>Points earned cannot be redeemed as cash refunds.</li>
+                      <li>Members will accumulate points in each purchase.</li>
+                      <li>
+                        Points earned can only be redeemed against general
+                        purchases or specific product rebates.
+                      </li>
+                      <li>
+                        Points can be adjusted within 7 days of purchase but
+                        receipt must be shown.
+                      </li>
+                      <li>
+                        Membership will be canceled if not purchased for six
+                        months and also downgrade his/her Membership Category.
+                      </li>
+                      <li>
+                        All notices relative to the membership shall be sent to
+                        the Member's email address or Phone Number provided
+                        during the registration process.
+                      </li>
+                      <li>
+                        The Member may extend his/her concerns to Khulshi Mart
+                        by emailing info@khulshimart.com.
+                      </li>
+                      <li>
+                        Khulshi Mart reserves the right to change the Terms &
+                        Conditions of membership without any prior notice.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
               <button
                 type="submit"
@@ -517,6 +592,7 @@ const defaultData = {
   anniversary: "",
   bloodGroup: "",
   hasComplimentaryCard: false,
+  member_id: "",
 };
 
 const showTermsPopup = ref(false);
@@ -540,12 +616,17 @@ const success = ref(false);
 const userId = ref(null);
 const otp = ref("");
 const brandColor = ref("");
+const memberType = ref("New");
 
 const formattedData = computed(() => {
-  return {
+  const obj = {
     ...formData.value,
     hasComplimentaryCard: !!formData.value.hasComplimentaryCard == "Yes",
   };
+  if (memberType.value == "New") {
+    delete obj.member_id;
+  }
+  return obj;
 });
 const captchaText = ref("");
 const userCaptcha = ref("");
@@ -583,6 +664,7 @@ const submitForm = () => {
       if (!response.ok) {
         return response.json().then((data) => {
           errors.value = data;
+          console.log(data, "data error");
           throw new Error(data);
         });
       }
@@ -646,8 +728,8 @@ const submitOtpForm = () => {
       regFormSubmitted.value = false;
       errors.value = {};
       isAgree.value = false;
-      userCaptcha.value = ""
-      refreshCaptcha()
+      userCaptcha.value = "";
+      refreshCaptcha();
       notify();
     })
     .catch((error) => {
@@ -714,7 +796,4 @@ onMounted(() => {
 span {
   font-size: 12px;
 }
-
-
-
 </style>
