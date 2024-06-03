@@ -105,6 +105,12 @@
                 >
                 Anniversary
                 </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                Membership ID
+                </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -153,6 +159,9 @@
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                   {{ person.anniversary }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  {{ person.member_id }}
                 </td>
               </tr>
             </tbody>
@@ -321,7 +330,13 @@ const downloadCsv = () => {
       if (obj[key] == null || obj[key] == undefined) {
         newObj[key] = "";
       } else if (obj[key] == 0) {
-        newObj[key] = "No";
+        console.log(obj[key], typeof obj[key]);
+        if (typeof obj[key] == 'number') {
+          newObj[key] = "No";
+        }
+        else {
+          newObj[key] = obj[key]
+        }
       } else if (obj[key] == 1) {
         newObj[key] = "Yes";
       } else {
@@ -342,6 +357,7 @@ const downloadCsv = () => {
       "Complimentary Card": newObj.hasComplimentaryCard,
       Gender: newObj.gender,
       Anniversary: newObj.anniversary,
+      'Membership ID': newObj.member_id,
     };
   });
   const csv = generateCsv(csvConfig)(newArray);
