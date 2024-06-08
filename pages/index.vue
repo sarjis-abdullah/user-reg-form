@@ -686,8 +686,8 @@ const submitForm = () => {
       // Handle error from the server or network
     });
 };
-const notify = () => {
-  toast.success("Thanks for the registration.", {
+const notify = (id) => {
+  toast.success("Thanks For Registration.Your Membership Id is: " + id, {
     autoClose: 2000,
   }); // ToastOptions
 };
@@ -717,7 +717,7 @@ const submitOtpForm = () => {
       return response.json();
     })
     .then((data) => {
-      console.log("Success:", data);
+      console.log("Success:", data, data.data.member_id);
       setTimeout(() => {
         loading.value = false;
       }, 1000);
@@ -730,7 +730,7 @@ const submitOtpForm = () => {
       isAgree.value = false;
       userCaptcha.value = "";
       refreshCaptcha();
-      notify();
+      notify(data?.data?.member_id);
     })
     .catch((error) => {
       console.error("Error:", error);
